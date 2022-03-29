@@ -10,6 +10,7 @@ public class Player{
 	private Image img; 	
 	private AffineTransform tx;
 	private int speedX, speedY = 0;
+	public int weaponSpeed = 10;
 
 	public Player() {
 		img = getImage("/imgs/player.png"); //load the image for Tree

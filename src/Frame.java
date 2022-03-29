@@ -43,7 +43,12 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		int x = e.getX();
+	    int y = e.getY();
+	    float length = (float) Math.sqrt(Math.pow((x - player.getX()), 2) + Math.pow((y - player.getY()), 2));
+	    float speed_X = (x - player.getX()) /length * player.weaponSpeed;
+	    float speed_Y = (y - player.getY()) /length * player.weaponSpeed;
+	    
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
