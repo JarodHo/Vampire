@@ -15,12 +15,15 @@ import javax.swing.Timer;
 
 public class Frame extends JPanel implements ActionListener, MouseListener, KeyListener {
 	//creating objects such as characters, background, music/sound effects...
+	Player player = new Player(100, 100);	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
+		player.paint(g);
 	}
 		
 	public static void main(String[] arg) {
 		Frame f = new Frame();
+		
 
 	}
 	public Frame() {

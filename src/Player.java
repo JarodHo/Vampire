@@ -11,7 +11,7 @@ public class Player {
 	private int x, y;
 	int speedX, speedY = 0;
 	public Player(int x, int y) {
-		img = getImage("/imgs/spaceship.png"); //load the image for Tree
+		img = getImage("/imgs/player.png"); //load the image for Tree
 		
 		this.x = x;
 		this.y = y;
@@ -29,6 +29,7 @@ public class Player {
 		//these are the 2 lines of code needed draw an image on the screen
 		Graphics2D g2 = (Graphics2D) g;
 		x += speedX;
+		y += speedY;
 		update();
 		g2.drawImage(img, tx, null);
 
