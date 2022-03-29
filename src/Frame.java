@@ -28,7 +28,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		Frame f = new Frame();
 
 	}
-	public Frame() {
+	public Frame() {		
 		JFrame f = new JFrame("Vampire Survivors");
 		f.setSize(new Dimension(900, 600));
 		f.setBackground(Color.blue);
