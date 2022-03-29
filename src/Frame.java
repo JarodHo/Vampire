@@ -35,7 +35,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		f.setLayout(new GridLayout(1,2));
 		f.addMouseListener(this);
 		f.addKeyListener(this);
-		Timer t = new Timer(16, this);
+		Timer t = new Timer(1, this);
 		t.start();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
@@ -73,12 +73,30 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		int keycode = e.getKeyCode();
+		if(keycode == 87) {
+			player.setSpeedY(-5);
+		}
+		else if(keycode == 65) {
+			player.setSpeedX(-5);
+		}
+		else if(keycode == 83) {
+			player.setSpeedY(5);
+		}
+		else if(keycode == 68) {
+			player.setSpeedX(5);
+		}
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		int keycode = e.getKeyCode();
+		if(keycode == 87 || keycode == 83) {
+			player.setSpeedY(0);
+		}
+		else if(keycode == 65 || keycode == 68) {
+			player.setSpeedX(0);
+		}
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {

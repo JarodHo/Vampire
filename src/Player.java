@@ -9,7 +9,7 @@ public class Player{
 	private int x, y;
 	private Image img; 	
 	private AffineTransform tx;
-	private int speedX = 0;
+	private int speedX, speedY = 0;
 
 	public Player() {
 		img = getImage("/imgs/player.png"); //load the image for Tree
@@ -38,6 +38,7 @@ public class Player{
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(img, tx, null);
 		x += speedX;
+		y += speedY;
 		
 		update();
 		
@@ -52,7 +53,7 @@ public class Player{
 	private void update()
 	{	
 		tx.setToTranslation(x, y);
-		tx.scale(1.0, 1.0);
+		tx.scale(0.25, 0.25);
 	}
 	
 	
@@ -66,10 +67,17 @@ public class Player{
 	public int getY() {
 		return y;
 	}
+	
 
+	public int getSpeedY() {
+		return speedY;
+	}
+	public void setSpeedY(int speedY) {
+		this.speedY = speedY;
+	}
 	private void init(double a, double b) {
 		tx.setToTranslation(a, b);
-		tx.scale(5.0, 5.0);
+		tx.scale(0.25, 0.25);
 	}
 
 	private Image getImage(String path) {
