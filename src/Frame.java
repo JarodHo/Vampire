@@ -17,7 +17,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	//creating objects such as characters, background, music/sound effects...
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-	}
+	}//hello
 		
 	public static void main(String[] arg) {
 		Frame f = new Frame();
