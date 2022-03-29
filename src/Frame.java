@@ -69,7 +69,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
+	} 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
