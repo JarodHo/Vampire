@@ -18,6 +18,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	//creating objects such as characters, background, music/sound effects...
 	Player player = new Player(400, 250);	
 	Enemy enemy = new Enemy(400, 400);
+	Weapon weapon = new Weapon(400, 300);
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		player.paint(g);
