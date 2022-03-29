@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -23,12 +24,11 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		
 	public static void main(String[] arg) {
 		Frame f = new Frame();
-		
 
 	}
 	public Frame() {
 		JFrame f = new JFrame("Vampire Survivors");
-		f.setSize(new Dimension(900, 900));
+		f.setSize(new Dimension(900, 600));
 		f.setBackground(Color.blue);
 		f.add(this);
 		f.setResizable(false);
@@ -68,7 +68,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		repaint();
 	} 
 	@Override
 	public void keyPressed(KeyEvent e) {

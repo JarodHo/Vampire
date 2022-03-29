@@ -5,21 +5,29 @@ import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 
-public class Player {
+public class Player{
+	private int x, y;
 	private Image img; 	
 	private AffineTransform tx;
-	private int x, y;
-	int speedX, speedY = 0;
-	public Player(int x, int y) {
+	private int speedX = 0;
+
+	public Player() {
 		img = getImage("/imgs/player.png"); //load the image for Tree
 		
-		this.x = x;
-		this.y = y;
-		
+
 		tx = AffineTransform.getTranslateInstance(x, y);
 		init(x, y); 				//initialize the location of the image
 									//use your variables
 	}
+	public Player(int x, int y) {
+		img = getImage("/imgs/player.png"); //load the image for Tree
+		this.x = x;
+		this.y = y;
+
+		tx = AffineTransform.getTranslateInstance(x, y);
+		init(x,y);
+	}
+	
 	public void changePicture(String newFileName) {
 		img = getImage(newFileName);
 		init(x, y);
@@ -28,19 +36,40 @@ public class Player {
 	public void paint(Graphics g) {
 		//these are the 2 lines of code needed draw an image on the screen
 		Graphics2D g2 = (Graphics2D) g;
-		x += speedX;
-		y += speedY;
-		update();
 		g2.drawImage(img, tx, null);
-
-
+		x += speedX;
+		
+		update();
+		
 	}
-	private void update() {
+	
+	public int getSpeedX() {
+		return speedX;
+	}
+	public void setSpeedX(int speedX) {
+		this.speedX = speedX;
+	}
+	private void update()
+	{	
 		tx.setToTranslation(x, y);
+		tx.scale(1.0, 1.0);
 	}
+	
+	
+	
+	public int getX() {
+		return x;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
+	public int getY() {
+		return y;
+	}
+
 	private void init(double a, double b) {
 		tx.setToTranslation(a, b);
-		tx.scale(0.25, 0.25);
+		tx.scale(5.0, 5.0);
 	}
 
 	private Image getImage(String path) {
@@ -52,32 +81,6 @@ public class Player {
 			e.printStackTrace();
 		}
 		return tempImage;
-	}
-	public int getX() {
-		return x;
-	}
-	public int getSpeedX() {
-		return speedX;
-	}
-
-
-	public void setSpeedX(int speedX) {
-		this.speedX = speedX;
-	}
-
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-
-	public int getY() {
-		return y;
-	}
-
-
-	public void setY(int y) {
-		this.y = y;
 	}
 
 }
