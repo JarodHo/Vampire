@@ -10,7 +10,7 @@ public class Enemy{
 	private Image img; 	
 	private AffineTransform tx;
 	private int speedX, speedY = 0;
-
+	
 	public Enemy() {
 		img = getImage("/imgs/vamp.png"); //load the image for Tree
 		

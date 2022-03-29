@@ -34,7 +34,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		f.setBackground(Color.blue);
 		f.add(this);
 		f.setResizable(false);
-		f.setLayout(new GridLayout(1,2));
+		f.setLayout(new GridLayout(1,2));	
 		f.addMouseListener(this);
 		f.addKeyListener(this);
 		Timer t = new Timer(1, this);
