@@ -9,9 +9,9 @@ public class Weapon {
 	private int x, y;
 	private Image img; 	
 	private AffineTransform tx;
-	private int speedX, speedY = 0;
+	private float speedX, speedY = 0;
 	public Weapon() {
-		img = getImage("/imgs/player.png"); //load the image for Tree
+		img = getImage("/imgs/weapon1.png"); //load the image for Tree
 		
 
 		tx = AffineTransform.getTranslateInstance(x, y);
@@ -43,16 +43,16 @@ public class Weapon {
 		
 	}
 	
-	public int getSpeedX() {
+	public float getSpeedX() {
 		return speedX;
 	}
-	public void setSpeedX(int speedX) {
-		this.speedX = speedX;
+	public void setSpeedX(float speed_X) {
+		this.speedX = speed_X;
 	}
 	private void update()
 	{	
 		tx.setToTranslation(x, y);
-		tx.scale(0.25, 0.25);
+		tx.scale(1, 1);
 	}
 	
 	
@@ -68,11 +68,11 @@ public class Weapon {
 	}
 	
 
-	public int getSpeedY() {
+	public float getSpeedY() {
 		return speedY;
 	}
-	public void setSpeedY(int speedY) {
-		this.speedY = speedY;
+	public void setSpeedY(float speed_Y) {
+		this.speedY = speed_Y;
 	}
 	private void init(double a, double b) {
 		tx.setToTranslation(a, b);

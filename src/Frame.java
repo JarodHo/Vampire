@@ -16,23 +16,25 @@ import javax.swing.Timer;
 
 public class Frame extends JPanel implements ActionListener, MouseListener, KeyListener {
 	//creating objects such as characters, background, music/sound effects...
-	Player player = new Player(100, 100);	
+	Player player = new Player(400, 250);	
+	Enemy enemy = new Enemy(400, 400);
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		player.paint(g);
+		enemy.paint(g);
 	}
 		
 	public static void main(String[] arg) {
 		Frame f = new Frame();
 
 	}
-	public Frame() {
+	public Frame() {			
 		JFrame f = new JFrame("Vampire Survivors");
 		f.setSize(new Dimension(900, 600));
 		f.setBackground(Color.blue);
 		f.add(this);
 		f.setResizable(false);
-		f.setLayout(new GridLayout(1,2));
+		f.setLayout(new GridLayout(1,2));	
 		f.addMouseListener(this);
 		f.addKeyListener(this);
 		Timer t = new Timer(1, this);
@@ -48,7 +50,9 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    float length = (float) Math.sqrt(Math.pow((x - player.getX()), 2) + Math.pow((y - player.getY()), 2));
 	    float speed_X = (x - player.getX()) /length * player.weaponSpeed;
 	    float speed_Y = (y - player.getY()) /length * player.weaponSpeed;
-	    
+	    weapon.setSpeedX(speed_X);
+	    weapon.setSpeedY(speed_Y);
+	    System.out.println("pew");
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
@@ -80,16 +84,20 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		// TODO Auto-generated method stub
 		int keycode = e.getKeyCode();
 		if(keycode == 87) {
-			player.setSpeedY(-5);
+//			player.setSpeedY(-5);
+			enemy.setSpeedY(5);
 		}
 		else if(keycode == 65) {
-			player.setSpeedX(-5);
+//			player.setSpeedX(-5);
+			enemy.setSpeedX(5);
 		}
 		else if(keycode == 83) {
-			player.setSpeedY(5);
+//			player.setSpeedY(5);
+			enemy.setSpeedY(-5);
 		}
 		else if(keycode == 68) {
-			player.setSpeedX(5);
+//			player.setSpeedX(5);
+			enemy.setSpeedX(-5);
 		}
 	}
 	@Override
@@ -97,10 +105,12 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		// TODO Auto-generated method stub
 		int keycode = e.getKeyCode();
 		if(keycode == 87 || keycode == 83) {
-			player.setSpeedY(0);
+//			player.setSpeedY(0);
+			enemy.setSpeedY(0);
 		}
 		else if(keycode == 65 || keycode == 68) {
-			player.setSpeedX(0);
+//			player.setSpeedX(0);
+			enemy.setSpeedX(0);
 		}
 	}
 	@Override
