@@ -18,7 +18,7 @@ public class Enemy{
 		tx = AffineTransform.getTranslateInstance(x, y);
 		init(x, y); 				//initialize the location of the image
 									//use your variables
-	}
+	}	
 	public Enemy(int x, int y) {
 		img = getImage("/imgs/vamp.png"); //load the image for Tree
 		this.x = x;
