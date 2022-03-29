@@ -16,10 +16,12 @@ import javax.swing.Timer;
 
 public class Frame extends JPanel implements ActionListener, MouseListener, KeyListener {
 	//creating objects such as characters, background, music/sound effects...
-	Player player = new Player(100, 100);	
+	Player player = new Player(400, 250);	
+	Enemy enemy = new Enemy(400, 400);
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		player.paint(g);
+		enemy.paint(g);
 	}
 		
 	public static void main(String[] arg) {
@@ -75,16 +77,20 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		// TODO Auto-generated method stub
 		int keycode = e.getKeyCode();
 		if(keycode == 87) {
-			player.setSpeedY(-5);
+//			player.setSpeedY(-5);
+			enemy.setSpeedY(5);
 		}
 		else if(keycode == 65) {
-			player.setSpeedX(-5);
+//			player.setSpeedX(-5);
+			enemy.setSpeedX(5);
 		}
 		else if(keycode == 83) {
-			player.setSpeedY(5);
+//			player.setSpeedY(5);
+			enemy.setSpeedY(-5);
 		}
 		else if(keycode == 68) {
-			player.setSpeedX(5);
+//			player.setSpeedX(5);
+			enemy.setSpeedX(-5);
 		}
 	}
 	@Override
@@ -92,10 +98,12 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		// TODO Auto-generated method stub
 		int keycode = e.getKeyCode();
 		if(keycode == 87 || keycode == 83) {
-			player.setSpeedY(0);
+//			player.setSpeedY(0);
+			enemy.setSpeedY(0);
 		}
 		else if(keycode == 65 || keycode == 68) {
-			player.setSpeedX(0);
+//			player.setSpeedX(0);
+			enemy.setSpeedX(0);
 		}
 	}
 	@Override
