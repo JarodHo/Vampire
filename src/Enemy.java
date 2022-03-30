@@ -67,7 +67,9 @@ public class Enemy{
 	public int getY() {
 		return y;
 	}
-	
+	public void setY(int y) {
+		this.y = y;
+	}
 
 	public int getSpeedY() {
 		return speedY;

@@ -23,6 +23,28 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		super.paintComponent(g);
 		player.paint(g);
 		enemy.paint(g);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//////////////////////////////////////////////////////////////////Enemy Movement//////////////////////////////////////////////////////////////
+		if(enemy.getX() < player.getX()) {
+			enemy.setX(enemy.getX()+1);
+		}
+		if(enemy.getX() > player.getX()) {
+			enemy.setX(enemy.getX()-1);
+		}
+		if(enemy.getY() < player.getY()) {
+			enemy.setY(enemy.getY()+1);
+		}
+		if(enemy.getY() > player.getY()) {
+			enemy.setY(enemy.getY()-1);
+		}
 	}
 		
 	public static void main(String[] arg) {
@@ -86,19 +108,19 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		int keycode = e.getKeyCode();
 		if(keycode == 87) {
 //			player.setSpeedY(-5);
-			enemy.setSpeedY(5);
+			enemy.setSpeedY(4);
 		}
 		else if(keycode == 65) {
 //			player.setSpeedX(-5);
-			enemy.setSpeedX(5);
+			enemy.setSpeedX(4);
 		}
 		else if(keycode == 83) {
 //			player.setSpeedY(5);
-			enemy.setSpeedY(-5);
+			enemy.setSpeedY(-4);
 		}
 		else if(keycode == 68) {
 //			player.setSpeedX(5);
-			enemy.setSpeedX(-5);
+			enemy.setSpeedX(-4);
 		}
 	}
 	@Override
