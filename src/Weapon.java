@@ -6,7 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 public class Weapon {
-	private int x, y;
+	private int x = 450, y = 250;
 	private Image img; 	
 	private AffineTransform tx;
 	private float speedX, speedY = 0;
@@ -17,14 +17,6 @@ public class Weapon {
 		tx = AffineTransform.getTranslateInstance(x, y);
 		init(x, y); 				//initialize the location of the image
 									//use your variables
-	}
-	public Weapon(int x, int y) {
-		img = getImage("/imgs/player.png"); //load the image for Tree
-		this.x = x;
-		this.y = y;
-
-		tx = AffineTransform.getTranslateInstance(x, y);
-		init(x,y);
 	}
 	
 	public void changePicture(String newFileName) {

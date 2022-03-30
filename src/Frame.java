@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,11 +19,15 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	//creating objects such as characters, background, music/sound effects...
 	Player player = new Player(400, 250);	
 	Enemy enemy = new Enemy(400, 400);
-	Weapon weapon = new Weapon(400, 300);
+	ArrayList<Weapon> weapons = new ArrayList<Weapon>();
+	int weaponCounter = 0;
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		player.paint(g);
 		enemy.paint(g);
+		for(Weapon weapon:weapons) {
+			weapon.paint(g);
+		}
 		
 		
 		
@@ -35,15 +40,19 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		//////////////////////////////////////////////////////////////////Enemy Movement//////////////////////////////////////////////////////////////
 		if(enemy.getX() < player.getX()) {
 			enemy.setX(enemy.getX()+1);
+			System.out.println("moving right");
 		}
-		if(enemy.getX() > player.getX()) {
+		else if(enemy.getX() > player.getX()) {
 			enemy.setX(enemy.getX()-1);
+			System.out.println("moving left");
 		}
 		if(enemy.getY() < player.getY()) {
 			enemy.setY(enemy.getY()+1);
+			System.out.println("moving down");
 		}
-		if(enemy.getY() > player.getY()) {
+		else if(enemy.getY() > player.getY()) {
 			enemy.setY(enemy.getY()-1);
+			System.out.println("moving up");
 		}
 	}
 		
@@ -73,8 +82,11 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    float length = (float) Math.sqrt(Math.pow((x - player.getX()), 2) + Math.pow((y - player.getY()), 2));
 	    float speed_X = (x - player.getX()) /length * player.weaponSpeed;
 	    float speed_Y = (y - player.getY()) /length * player.weaponSpeed;
-	    weapon.setSpeedX(speed_X);
-	    weapon.setSpeedY(speed_Y);
+	    weapons.add(new Weapon());
+	    
+	    weapons.get(weaponCounter).setSpeedX(speed_X);
+	    weapons.get(weaponCounter).setSpeedY(speed_Y);
+	    weaponCounter++;
 	    System.out.println("pew");
 	}
 	@Override
