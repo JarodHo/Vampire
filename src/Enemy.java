@@ -33,10 +33,10 @@ public class Enemy{
 		init(x, y);
 	}
 	
-	public void paint(Graphics g) {
+	public void paint(Graphics g, Player other) {
 		//these are the 2 lines of code needed draw an image on the screen
 		Graphics2D g2 = (Graphics2D) g;
-		if (speedX < 0) {
+		if (this.getX() < other.getX()) {
 			g2.drawImage(img, tx, null);
 		}
 		else {
