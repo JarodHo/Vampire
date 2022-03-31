@@ -36,7 +36,14 @@ public class Enemy{
 	public void paint(Graphics g) {
 		//these are the 2 lines of code needed draw an image on the screen
 		Graphics2D g2 = (Graphics2D) g;
-		g2.drawImage(img, tx, null);
+		if (speedX < 0) {
+			g2.drawImage(img, tx, null);
+		}
+		else {
+			g2.drawImage(img, x + img.getWidth(null)/4, y, -img.getWidth(null)/4, img.getHeight(null)/4, null);
+
+		}
+		
 		x += speedX;
 		y += speedY;
 		
