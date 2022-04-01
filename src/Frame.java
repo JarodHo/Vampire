@@ -22,7 +22,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	Player player = new Player(400, 250);	
 	Enemy enemy = new Enemy(400, 400);
 	ArrayList<Weapon> weapons = new ArrayList<Weapon>();
-	Background background = new Background(0, 0);
+	Background background = new Background(0, 0);	
 	int weaponCounter = 0;
 	long start = System.currentTimeMillis();
 	long endTime = start + 9000;
