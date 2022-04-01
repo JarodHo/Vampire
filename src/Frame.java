@@ -25,27 +25,35 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	Background background = new Background(0, 0);
 	int weaponCounter = 0;
 	long start = System.currentTimeMillis();
-	long endTime = start + 10;
+	long endTime = start + 9000;
 	int timer = 60;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-		start+= 1;
 		background.paint(g);
 		player.paint(g);
 		enemy.paint(g, player);
+		
 		for(Weapon weapon:weapons) {
 			weapon.paint(g);
 		}
 		
-//		if(start%1000==0) {
-//			timer--;
-//		}trying to display timer
-		System.out.println(timer);
+		
+		
+		
+		/////////////////////////timer//////////////////////
+		Font c = new Font ("Terminal", Font.BOLD, 25);
+		g.setFont(c);
+		g.setColor(Color.black);
+		g.drawString(timer+"", 410, 100);//keep this on top of everything painted
+		start+=2;
+		if((endTime-start)%150 == 0) {
+			timer--;
+		}
+		
 		if(start == endTime) {
 			System.out.println("win");
 		}
-		
 		
 		
 		
