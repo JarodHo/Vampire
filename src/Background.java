@@ -14,7 +14,7 @@ public class Background{
 	private float speedX, speedY = 0;
 	
 	public Background(int x, int y) {
-		img = getImage("/imgs/background.png"); //load the image for Tree
+		img = getImage("/imgs/Map001.png"); //load the image for Tree
 		//put the background here^^^^
 		this.x = x;
 		this.y = y;
@@ -41,13 +41,13 @@ public class Background{
 	private void update()
 	{	
 		tx.setToTranslation(x, y);
-		tx.scale(1, 1);
+		tx.scale(2, 2);
 	}
 	
 	
 	private void init(double a, double b) {
 		tx.setToTranslation(a, b);
-		tx.scale(.5, .5);
+		tx.scale(2, 2);
 	}
 
 	private Image getImage(String path) {
