@@ -47,7 +47,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		g.setColor(Color.black);
 		g.drawString(timer+"", 410, 100);//keep this on top of everything painted
 		start+=2;
-		if((endTime-start)%150 == 0) {
+		if((endTime-start)%150 == 0) {	
 			timer--;
 		}
 		
