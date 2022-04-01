@@ -20,7 +20,7 @@ import javax.swing.Timer;
 public class Frame extends JPanel implements ActionListener, MouseListener, KeyListener {
 	//creating objects such as characters, background, music/sound effects...
 	Player player = new Player(400, 250);	
-	Enemy enemy = new Enemy(400, 400);
+	static ArrayList<Enemy> enemies = new ArrayList<Enemy>(); 
 	ArrayList<Weapon> weapons = new ArrayList<Weapon>();
 	Background background = new Background(0, 0);	
 	int weaponCounter = 0;
@@ -32,7 +32,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		super.paintComponent(g);
 		background.paint(g);
 		player.paint(g);
-		enemy.paint(g, player);
+		for(Enemy enemy:enemies) {
+			enemy.paint(g, player);
+		}
+		
 		
 		for(Weapon weapon:weapons) {
 			weapon.paint(g);
@@ -60,26 +63,29 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		
 		
 		//////////////////////////////////////////////////////////////////Enemy Movement//////////////////////////////////////////////////////////////
-		if(enemy.getX() < player.getX()) {
-			enemy.setX(enemy.getX()+1);
-			System.out.println("moving right");
-		}
-		else if(enemy.getX() > player.getX()) {
-			enemy.setX(enemy.getX()-1);
-			System.out.println("moving left");
-		}
-		if(enemy.getY() < player.getY()) {
-			enemy.setY(enemy.getY()+1);
-			System.out.println("moving down");
-		}
-		else if(enemy.getY() > player.getY()) {
-			enemy.setY(enemy.getY()-1);
-//			System.out.println("moving up");
+		for(Enemy enemy:enemies) {
+			if(enemy.getX() < player.getX()) {
+				enemy.setX(enemy.getX()+1);
+				System.out.println("moving right");
+			}
+			else if(enemy.getX() > player.getX()) {
+				enemy.setX(enemy.getX()-1);
+				System.out.println("moving left");
+			}
+			if(enemy.getY() < player.getY()) {
+				enemy.setY(enemy.getY()+1);
+				System.out.println("moving down");
+			}
+			else if(enemy.getY() > player.getY()) {
+				enemy.setY(enemy.getY()-1);
+	//			System.out.println("moving up");
+			}
 		}
 	}
 		
 	public static void main(String[] arg) {
 		Frame f = new Frame();
+		enemies.add(new Enemy(400, 400));
 
 	}
 	public Frame() {			
@@ -142,40 +148,44 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int keycode = e.getKeyCode();
-		if(keycode == 87) {
-//			player.setSpeedY(-5);
-			enemy.setSpeedY(2);
-			background.setSpeedY(2);
-		}
-		else if(keycode == 65) {
-//			player.setSpeedX(-5);
-			enemy.setSpeedX(2);
-			background.setSpeedX(2);
-		}
-		else if(keycode == 83) {
-//			player.setSpeedY(5);
-			enemy.setSpeedY(-2);
-			background.setSpeedY(-2);
-		}
-		else if(keycode == 68) {
-//			player.setSpeedX(5);
-			enemy.setSpeedX(-2);
-			background.setSpeedX(-2);
+		for(Enemy enemy:enemies) {
+			if(keycode == 87) {
+	//			player.setSpeedY(-5);
+				enemy.setSpeedY(2);
+				background.setSpeedY(2);
+			}
+			else if(keycode == 65) {
+	//			player.setSpeedX(-5);
+				enemy.setSpeedX(2);
+				background.setSpeedX(2);
+			}
+			else if(keycode == 83) {
+	//			player.setSpeedY(5);
+				enemy.setSpeedY(-2);
+				background.setSpeedY(-2);
+			}
+			else if(keycode == 68) {
+	//			player.setSpeedX(5);
+				enemy.setSpeedX(-2);
+				background.setSpeedX(-2);
+			}
 		}
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int keycode = e.getKeyCode();
-		if(keycode == 87 || keycode == 83) {
-//			player.setSpeedY(0);
-			enemy.setSpeedY(0);
-			background.setSpeedY(0);
-		}
-		else if(keycode == 65 || keycode == 68) {
-//			player.setSpeedX(0);
-			enemy.setSpeedX(0);
-			background.setSpeedX(0);
+		for(Enemy enemy:enemies) {
+			if(keycode == 87 || keycode == 83) {
+	//			player.setSpeedY(0);
+				enemy.setSpeedY(0);
+				background.setSpeedY(0);
+			}
+			else if(keycode == 65 || keycode == 68) {
+	//			player.setSpeedX(0);
+				enemy.setSpeedX(0);
+				background.setSpeedX(0);
+			}
 		}
 	}
 	@Override
