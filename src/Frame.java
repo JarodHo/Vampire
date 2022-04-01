@@ -85,7 +85,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		
 	public static void main(String[] arg) {
 		Frame f = new Frame();
-		enemies.add(new Enemy(400, 400));
+		enemies.add(new Enemy(400, 400, 100.0));
 
 	}
 	public Frame() {			
