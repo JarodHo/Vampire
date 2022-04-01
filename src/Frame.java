@@ -10,6 +10,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.TimerTask;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,20 +22,28 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	Player player = new Player(400, 250);	
 	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	ArrayList<Weapon> weapons = new ArrayList<Weapon>();
+	Background background = new Background(0, 0);
 	int weaponCounter = 0;
+	long start = System.currentTimeMillis();
+	long endTime = start + 10;
+	int timer = 60;
+	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
+		start+= 1;
+		background.paint(g);
 		player.paint(g);
 		for(Enemy enemy:enemies) {
 			enemy.paint(g, player);
 		}
 		
-		for(Weapon weapon:weapons) {
-			weapon.paint(g);
+//		if(start%1000==0) {
+//			timer--;
+//		}trying to display timer
+		System.out.println(timer);
+		if(start == endTime) {
+			System.out.println("win");
 		}
-		
-		
-		
 		
 		
 		
@@ -58,7 +68,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				enemy.setY(enemy.getY()-1);
 				System.out.println("moving up");
 			}
-		}
 	}
 		
 	public static void main(String[] arg) {
@@ -78,6 +87,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		t.start();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
+		
+		
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {

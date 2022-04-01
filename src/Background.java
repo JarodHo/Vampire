@@ -38,7 +38,7 @@ public class Background{
 	private void update()
 	{	
 		tx.setToTranslation(x, y);
-		tx.scale(1.9, 1.9);
+		tx.scale(1, 1);
 	}
 	
 	
