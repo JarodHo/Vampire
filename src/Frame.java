@@ -36,7 +36,9 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		for(Enemy enemy:enemies) {
 			enemy.paint(g, player);
 		}
-		
+		for(Weapon weapon:weapons) {
+			weapon.paint(g);
+		}
 //		if(start%1000==0) {
 //			timer--;
 //		}trying to display timer
@@ -68,6 +70,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				enemy.setY(enemy.getY()-1);
 				System.out.println("moving up");
 			}
+		}
 	}
 		
 	public static void main(String[] arg) {
