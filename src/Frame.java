@@ -142,18 +142,22 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			if(keycode == 87) {
 	//			player.setSpeedY(-5);
 				enemy.setSpeedY(4);
+				background.setSpeedY(4);
 			}
 			else if(keycode == 65) {
 	//			player.setSpeedX(-5);
 				enemy.setSpeedX(4);
+				background.setSpeedX(4);
 			}
 			else if(keycode == 83) {
 	//			player.setSpeedY(5);
 				enemy.setSpeedY(-4);
+				background.setSpeedY(-4);
 			}
 			else if(keycode == 68) {
 	//			player.setSpeedX(5);
 				enemy.setSpeedX(-4);
+				background.setSpeedX(-4);
 			}
 		}
 	}
@@ -165,10 +169,12 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			if(keycode == 87 || keycode == 83) {
 	//			player.setSpeedY(0);
 				enemy.setSpeedY(0);
+				background.setSpeedY(0);
 			}
 			else if(keycode == 65 || keycode == 68) {
 	//			player.setSpeedX(0);
 				enemy.setSpeedX(0);
+				background.setSpeedX(0);
 			}
 		}
 	}

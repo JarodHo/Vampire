@@ -11,7 +11,8 @@ public class Background{
 	private int x, y;
 	private Image img; 	
 	private AffineTransform tx;
-
+	private float speedX, speedY = 0;
+	
 	public Background(int x, int y) {
 		img = getImage("/imgs/background.png"); //load the image for Tree
 		//put the background here^^^^
@@ -32,6 +33,8 @@ public class Background{
 		//these are the 2 lines of code needed draw an image on the screen
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(img, tx, null);
+		x += speedX;
+		y += speedY;
 		update();
 	}
 	
@@ -56,6 +59,18 @@ public class Background{
 			e.printStackTrace();
 		}
 		return tempImage;
+	}
+	public float getSpeedX() {
+		return speedX;
+	}
+	public void setSpeedX(float speed_X) {
+		this.speedX = speed_X;
+	}
+	public float getSpeedY() {
+		return speedY;
+	}
+	public void setSpeedY(float speed_Y) {
+		this.speedY = speed_Y;
 	}
 
 }
