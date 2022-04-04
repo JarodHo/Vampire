@@ -15,7 +15,7 @@ public class Player{
 	public int weaponSpeed = 10;
 	private double currHealth;
 	private double maxHealth;
-	private double currHealthPercentage;
+	public double currHealthPercentage;
 	public Player() {
 		img = getImage("/imgs/player.png"); //load the image for Tree
 		
