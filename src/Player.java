@@ -17,7 +17,7 @@ public class Player{
 	private double maxHealth;
 	public double currHealthPercentage;
 	public Player() {
-		img = getImage("/imgs/player.png"); //load the image for Tree
+		img = getImage("/imgs/player.gif"); //load the image for Tree
 		
 
 		tx = AffineTransform.getTranslateInstance(x, y);
@@ -25,7 +25,7 @@ public class Player{
 									//use your variables
 	}
 	public Player(int x, int y, double maxHealth) {
-		img = getImage("/imgs/player.png"); //load the image for Tree
+		img = getImage("/imgs/player.gif"); //load the image for Tree
 		img2 = getImage("/imgs/HealthBar.PNG");
 		this.x = x;
 		this.y = y;
@@ -45,7 +45,15 @@ public class Player{
 	public void paint(Graphics g) {
 		//these are the 2 lines of code needed draw an image on the screen
 		Graphics2D g2 = (Graphics2D) g;
-		g2.drawImage(img, tx, null);
+		if (speedX >= 0) {
+			System.out.println("moving right" + speedX);
+			g2.drawImage(img, tx, null);
+		}
+		else {
+			System.out.println("moving left");
+			g2.drawImage(img, x + img.getWidth(null)/2, y, -img.getWidth(null)/2, img.getHeight(null)/2, null);
+		}
+		
 		g2.drawImage(img2, tx2, null);
 		x += speedX;
 		y += speedY;
