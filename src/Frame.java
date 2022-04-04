@@ -19,7 +19,7 @@ import javax.swing.Timer;
 
 public class Frame extends JPanel implements ActionListener, MouseListener, KeyListener {
 	//creating objects such as characters, background, music/sound effects...
-	Player player = new Player(400, 250);	
+	Player player = new Player(400, 250, 100);	
 	static ArrayList<Enemy> enemies = new ArrayList<Enemy>(); 
 	static ArrayList<Weapon> weapons = new ArrayList<Weapon>();
 	Background background = new Background(0, 0);	
@@ -75,8 +75,12 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		//////////////////////////Enemy Spawn////////////////////////
 		if(!win) {
 			int spawn = (int)(Math.random() * 200);
-			if(spawn == 2) enemies.add(new Enemy((int)(Math.random() * 500) + 300, (int)(Math.random() * 300) + 300, 100.0));
-			if(spawn == 3) enemies.add(new Enemy(-(int)(Math.random() * 500) - 300, -(int)(Math.random() * 300) - 300, 100.0));
+			if(spawn == 2) {
+				enemies.add(new Enemy((int)(Math.random() * 500) + 300, (int)(Math.random() * 300) + 300, 100.0, (Math.random() * 10)));
+			}
+			if(spawn == 3) {
+				enemies.add(new Enemy(-(int)(Math.random() * 500) - 300, -(int)(Math.random() * 300) - 300, 100.0, (Math.random() * 10)));
+			}
 		}
 		
 		
@@ -132,9 +136,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		
 	public static void main(String[] arg) {
 		Frame f = new Frame();
-		enemies.add(new Enemy(400, 400, 100.0));
 		weapons.add(null);
-
 	}
 	public Frame() {			
 		JFrame f = new JFrame("Vampire Survivors");
