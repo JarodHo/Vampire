@@ -53,7 +53,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		g.setFont(c1);
 		g.setColor(Color.black);
 		g.drawString("LV: " + level, 10, 25);
-		g.drawString("Kills until next level: " + (5 - xpPercent/20), 700, 25);
+		g.drawString("Kills until next level: " + (5*level - xpPercent/20), 700, 25);
 		if(xpPercent == 100) {
 			level++;
 			xpPercent = 0;
@@ -88,23 +88,24 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		
 		//////////////////////////////////////////////////////////////////Enemy Movement//////////////////////////////////////////////////////////////
 		if(enemies.size() > 0) {
-				for(Enemy enemy:enemies) {
-					if(enemy.getX() < player.getX()) {
-						enemy.setX(enemy.getX()+1);
-//						System.out.println("moving right");
-					}
-					else if(enemy.getX() > player.getX()) {
-						enemy.setX(enemy.getX()-1);
-//						System.out.println("moving left");
-					}
-					if(enemy.getY() < player.getY()) {
-						enemy.setY(enemy.getY()+1);
-//						System.out.println("moving down");
-					}
-					else if(enemy.getY() > player.getY()) {
-						enemy.setY(enemy.getY()-1);
-//						System.out.println("moving up");
-					}	
+				for(int i =0; i < enemies.size(); i++) {
+							if(enemies.get(i).getX() < player.getX()) {
+								enemies.get(i).setX(enemies.get(i).getX()+1);
+//								System.out.println("moving right");
+							}
+							else if(enemies.get(i).getX() > player.getX()) {
+								enemies.get(i).setX(enemies.get(i).getX()-1);
+//								System.out.println("moving left");
+							}
+							if(enemies.get(i).getY() < player.getY()) {
+								enemies.get(i).setY(enemies.get(i).getY()+1);
+//								System.out.println("moving down");
+							}
+							else if(enemies.get(i).getY() > player.getY()) {
+								enemies.get(i).setY(enemies.get(i).getY()-1);
+//								System.out.println("moving up");
+							}
+
 			}
 			
 		
