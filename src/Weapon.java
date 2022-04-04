@@ -18,6 +18,13 @@ public class Weapon {
 		init(x, y); 				//initialize the location of the image
 									//use your variables
 	}
+	public Weapon(int x, int y) {
+		img = getImage("/imgs/weapon.png"); //load the image for Tree
+		this.x = x;
+		this.y = y;
+		tx = AffineTransform.getTranslateInstance(x, y);
+		init(x,y);
+	}
 	
 	public void changePicture(String newFileName) {
 		img = getImage(newFileName);

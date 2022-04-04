@@ -21,12 +21,15 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	//creating objects such as characters, background, music/sound effects...
 	Player player = new Player(400, 250);	
 	static ArrayList<Enemy> enemies = new ArrayList<Enemy>(); 
-	ArrayList<Weapon> weapons = new ArrayList<Weapon>();
+	static ArrayList<Weapon> weapons = new ArrayList<Weapon>();
 	Background background = new Background(0, 0);	
-	int weaponCounter = 0;
+	int weaponCounter = 1;
 	long start = System.currentTimeMillis();
 	long endTime = start + 9000;
 	int timer = 60;
+	boolean win = false;
+	int xpPercent = 0;
+	int level = 1;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -38,72 +41,99 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		
 		
 		for(Weapon weapon:weapons) {
-			weapon.paint(g);
+			if(weapon != null) weapon.paint(g);
 		}
 		
 		
-		
-		
+		//////////////////////////xp bar////////////////////
+		g.setColor(Color.cyan);
+		g.fillRect(0, 10, xpPercent*9, 20);
+		Font c1 = new Font ("Terminal", Font.BOLD, 15);
+		g.setFont(c1);
+		g.setColor(Color.black);
+		g.drawString("LV: " + level, 10, 25);
+		g.drawString("Kills until next level: " + (5 - xpPercent/20), 700, 25);
+		if(xpPercent == 100) {
+			level++;
+			xpPercent = 0;
+		}
 		/////////////////////////timer//////////////////////
-		Font c = new Font ("Terminal", Font.BOLD, 25);
-		g.setFont(c);
+		Font c2 = new Font ("Terminal", Font.BOLD, 25);
+		g.setFont(c2);
 		g.setColor(Color.black);
 		g.drawString(timer+"", 410, 100);//keep this on top of everything painted
 		start+=2;
-		if((endTime-start)%150 == 0) {	
+		if((endTime-start)%150 == 0 && !win) {	
 			timer--;
 		}
 		
 		if(start == endTime) {
+			win = true;
 			System.out.println("win");
 		}
 		
+		//////////////////////////Enemy Spawn////////////////////////
+		if(!win) {
+			int spawn = (int)(Math.random() * 200);
+			if(spawn == 2) enemies.add(new Enemy((int)(Math.random() * 500) + 300, (int)(Math.random() * 300) + 300, 100.0));
+			if(spawn == 3) enemies.add(new Enemy(-(int)(Math.random() * 500) - 300, -(int)(Math.random() * 300) - 300, 100.0));
+		}
 		
-
 		
 		
 		//////////////////////////////////////////////////////////////////Enemy Movement//////////////////////////////////////////////////////////////
-		for(Enemy enemy:enemies) {
-			if(enemy.getX() < player.getX()) {
-				enemy.setX(enemy.getX()+1);
-//				System.out.println("moving right");
-			}
-			else if(enemy.getX() > player.getX()) {
-				enemy.setX(enemy.getX()-1);
-//				System.out.println("moving left");
-			}
-			if(enemy.getY() < player.getY()) {
-				enemy.setY(enemy.getY()+1);
-//				System.out.println("moving down");
-			}
-			else if(enemy.getY() > player.getY()) {
-				enemy.setY(enemy.getY()-1);
-//				System.out.println("moving up");
-			}
+		if(enemies.size() > 0) {
+			for(Enemy enemy:enemies) {
+				if(enemy.getX() < player.getX()) {
+					enemy.setX(enemy.getX()+1);
+//					System.out.println("moving right");
+				}
+				else if(enemy.getX() > player.getX()) {
+					enemy.setX(enemy.getX()-1);
+//					System.out.println("moving left");
+				}
+				if(enemy.getY() < player.getY()) {
+					enemy.setY(enemy.getY()+1);
+//					System.out.println("moving down");
+				}
+				else if(enemy.getY() > player.getY()) {
+					enemy.setY(enemy.getY()-1);
+//					System.out.println("moving up");
+				}	
+		}
+		
 /////////////////////////////////////////////Enemy hurt detection///////////////////////////////
-//			g.drawRect(enemies.get(0).getX()+5, enemies.get(0).getY()+7, 38, 58); //ENEMY HIT BOX
-
-			for(int i = 0; i < weapons.size(); i++) {
-				for(Enemy e : enemies) {
-					if(weapons.get(i).getX() >= e.getX()+5 && weapons.get(i).getX() <= e.getX()+38+5) {
-						if(weapons.get(i).getY() >= e.getY()+7 && weapons.get(i).getY() <= e.getY()+7+58) {
-							weapons.remove(i);
-							weaponCounter--;
-							System.out.println("hit");
-							e.setCurrHealth(e.getCurrHealth()-10);
-							e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
+			if(enemies.size() > 0) {
+				for(int i = 0; i < enemies.size(); i++) {
+					if(enemies.get(i).getCurrHealth() == 0) {
+						enemies.remove(i);
+						xpPercent += 20/level;
+					}
+				}
+			}
+			if(weapons.size() > 0) {
+				for(int i = 1; i < weapons.size(); i++) {
+					for(Enemy e : enemies) {
+						if(weapons.get(i) != null && weapons.get(i).getX() >= e.getX()+5 && weapons.get(i).getX() <= e.getX()+38+5) {
+							if(weapons.get(i).getY() >= e.getY()+7 && weapons.get(i).getY() <= e.getY()+7+58) {
+								weapons.remove(i);
+								i--;
+								weaponCounter--;
+								System.out.println("hit");
+								e.setCurrHealth(e.getCurrHealth()-10);
+								e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
+							}
 						}
 					}
 				}
 			}
-			//////////////////////////////////////remove enemy when health <= 0
-			
 		}
 	}
 		
 	public static void main(String[] arg) {
 		Frame f = new Frame();
 		enemies.add(new Enemy(400, 400, 100.0));
+		weapons.add(null);
 
 	}
 	public Frame() {			
@@ -131,10 +161,13 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    float speed_X = (x - player.getX()) /length * player.weaponSpeed;
 	    float speed_Y = (y - player.getY()) /length * player.weaponSpeed;
 	    weapons.add(new Weapon());
+	    if(weapons.get(weaponCounter) != null) {
+	    	weapons.get(weaponCounter).setSpeedX(speed_X);
+		    weapons.get(weaponCounter).setSpeedY(speed_Y);
+		    weaponCounter++;
+	    }
 	    
-	    weapons.get(weaponCounter).setSpeedX(speed_X);
-	    weapons.get(weaponCounter).setSpeedY(speed_Y);
-	    weaponCounter++;
+	    
 	    System.out.println("pew");
 	}
 	@Override
@@ -166,45 +199,57 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int keycode = e.getKeyCode();
-		for(Enemy enemy:enemies) {
-			if(keycode == 87) {
-	//			player.setSpeedY(-5);
-				enemy.setSpeedY(2);
-				background.setSpeedY(2);
+		if(enemies.size() > 0) {
+			for(Enemy enemy:enemies) {
+				if(keycode == 87) {
+					enemy.setSpeedY(2);
+				}
+				else if(keycode == 65) {
+					enemy.setSpeedX(2);
+				}
+				else if(keycode == 83) {
+					enemy.setSpeedY(-2);
+				}
+				else if(keycode == 68) {
+					enemy.setSpeedX(-2);
+				}
 			}
-			else if(keycode == 65) {
-	//			player.setSpeedX(-5);
-				enemy.setSpeedX(2);
-				background.setSpeedX(2);
-			}
-			else if(keycode == 83) {
-	//			player.setSpeedY(5);
-				enemy.setSpeedY(-2);
-				background.setSpeedY(-2);
-			}
-			else if(keycode == 68) {
-	//			player.setSpeedX(5);
-				enemy.setSpeedX(-2);
-				background.setSpeedX(-2);
-			}
+		}
+		
+		if(keycode == 87) {
+			background.setSpeedY(2);
+		}
+		
+		else if(keycode == 65) {
+			background.setSpeedX(2);
+		}
+		else if(keycode == 83) {
+			background.setSpeedY(-2);
+		}
+		else if(keycode == 68) {
+			background.setSpeedX(-2);
 		}
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int keycode = e.getKeyCode();
-		for(Enemy enemy:enemies) {
-			if(keycode == 87 || keycode == 83) {
-	//			player.setSpeedY(0);
-				enemy.setSpeedY(0);
+		if(enemies.size() > 0) {
+			for(Enemy enemy:enemies) {
+				if(keycode == 87 || keycode == 83) {
+					enemy.setSpeedY(0);
+				}
+				else if(keycode == 65 || keycode == 68) {
+					enemy.setSpeedX(0);
+				}
+			}
+		}
+		if(keycode == 87 || keycode == 83) {
 				background.setSpeedY(0);
 			}
 			else if(keycode == 65 || keycode == 68) {
-	//			player.setSpeedX(0);
-				enemy.setSpeedX(0);
 				background.setSpeedX(0);
 			}
-		}
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
