@@ -100,7 +100,7 @@ public class Player{
 	}
 	public void setCurrHealthPercentage(double currHealthPercentage) {
 		this.currHealthPercentage = currHealthPercentage;
-	}
+	}	
 	public int getWeaponSpeed() {
 		return weaponSpeed;
 	}

@@ -141,7 +141,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					player.setCurrHealth(player.getCurrHealth()-5);
 					player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
 					iFrames = 0;
-				}
+				}	
 			}
 		}
 		
