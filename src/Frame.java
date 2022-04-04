@@ -59,27 +59,45 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		}
 		
 		
-		
+
 		
 		
 		//////////////////////////////////////////////////////////////////Enemy Movement//////////////////////////////////////////////////////////////
 		for(Enemy enemy:enemies) {
 			if(enemy.getX() < player.getX()) {
 				enemy.setX(enemy.getX()+1);
-				System.out.println("moving right");
+//				System.out.println("moving right");
 			}
 			else if(enemy.getX() > player.getX()) {
 				enemy.setX(enemy.getX()-1);
-				System.out.println("moving left");
+//				System.out.println("moving left");
 			}
 			if(enemy.getY() < player.getY()) {
 				enemy.setY(enemy.getY()+1);
-				System.out.println("moving down");
+//				System.out.println("moving down");
 			}
 			else if(enemy.getY() > player.getY()) {
 				enemy.setY(enemy.getY()-1);
-	//			System.out.println("moving up");
+//				System.out.println("moving up");
 			}
+/////////////////////////////////////////////Enemy hurt detection///////////////////////////////
+//			g.drawRect(enemies.get(0).getX()+5, enemies.get(0).getY()+7, 38, 58); //ENEMY HIT BOX
+
+			for(int i = 0; i < weapons.size(); i++) {
+				for(Enemy e : enemies) {
+					if(weapons.get(i).getX() >= e.getX()+5 && weapons.get(i).getX() <= e.getX()+38+5) {
+						if(weapons.get(i).getY() >= e.getY()+7 && weapons.get(i).getY() <= e.getY()+7+58) {
+							weapons.remove(i);
+							weaponCounter--;
+							System.out.println("hit");
+							e.setCurrHealth(e.getCurrHealth()-10);
+							e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
+						}
+					}
+				}
+			}
+			//////////////////////////////////////remove enemy when health <= 0
+			
 		}
 	}
 		

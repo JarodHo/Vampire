@@ -33,7 +33,7 @@ public class Enemy{
 		this.maxHealth = maxHealth;
 		currHealthPercentage = currHealth/this.maxHealth;
 		tx = AffineTransform.getTranslateInstance(x, y);
-		tx2 = AffineTransform.getTranslateInstance(x+3, y+65);
+		tx2 = AffineTransform.getTranslateInstance(x+2, y+65);
 		init(x,y);
 	}
 	
@@ -71,13 +71,13 @@ public class Enemy{
 	{	
 		tx.setToTranslation(x, y);
 		tx.scale(0.25, 0.25);
-		tx2.setToTranslation(x+3, y+65);
+		tx2.setToTranslation(x+2, y+65);
 		tx2.scale(currHealthPercentage/20, .05);	
 	}
 	private void init(double a, double b) {
 		tx.setToTranslation(a, b);
 		tx.scale(0.25, 0.25);
-		tx2.setToTranslation(a+3, b+65);
+		tx2.setToTranslation(a+2, b+65);
 		tx2.scale(currHealthPercentage/20, .05);	
 
 	}

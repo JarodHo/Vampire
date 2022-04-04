@@ -6,12 +6,12 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 public class Weapon {
-	private int x = 450, y = 250;
+	private int x = 407, y = 255;
 	private Image img; 	
 	private AffineTransform tx;
 	private float speedX, speedY = 0;
 	public Weapon() {
-		img = getImage("/imgs/weapon1.png"); //load the image for Tree
+		img = getImage("/imgs/weapon.png"); //load the image for Tree
 		
 
 		tx = AffineTransform.getTranslateInstance(x, y);
@@ -44,7 +44,7 @@ public class Weapon {
 	private void update()
 	{	
 		tx.setToTranslation(x, y);
-		tx.scale(1, 1);
+		tx.scale(.02, .02);
 	}
 	
 	
@@ -68,7 +68,7 @@ public class Weapon {
 	}
 	private void init(double a, double b) {
 		tx.setToTranslation(a, b);
-		tx.scale(0.25, 0.25);
+		tx.scale(0.02, 0.02);
 	}
 
 	private Image getImage(String path) {
