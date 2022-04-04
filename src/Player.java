@@ -33,7 +33,7 @@ public class Player{
 		this.maxHealth = maxHealth;
 		currHealthPercentage = currHealth/this.maxHealth;
 		tx = AffineTransform.getTranslateInstance(x, y);
-		tx2 = AffineTransform.getTranslateInstance(x+2, y+65);
+		tx2 = AffineTransform.getTranslateInstance(x+2, y+80);
 		init(x,y);
 	}
 	
@@ -64,8 +64,8 @@ public class Player{
 	{	
 		tx.setToTranslation(x, y);
 
-		tx.scale(0.25, 0.25);
-		tx2.setToTranslation(x+2, y+65);
+		tx.scale(0.5, 0.5);
+		tx2.setToTranslation(x+2, y+80);
 		tx2.scale(currHealthPercentage/20, .05);	
 	}
 	
@@ -95,6 +95,12 @@ public class Player{
 		tx2.scale(currHealthPercentage/20, .05);
 	}
 
+	public double getCurrHealthPercentage() {
+		return currHealthPercentage;
+	}
+	public void setCurrHealthPercentage(double currHealthPercentage) {
+		this.currHealthPercentage = currHealthPercentage;
+	}
 	public int getWeaponSpeed() {
 		return weaponSpeed;
 	}

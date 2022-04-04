@@ -30,6 +30,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	boolean win = false;
 	int xpPercent = 0;
 	int level = 1;
+	int iFrames = 0;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -131,6 +132,23 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					}
 				}
 			}
+		////////////////Player hurt detection/////////////////
+		iFrames++;
+		g.drawRect(player.getX(), player.getY(), 50, 77);
+		for(Enemy e: enemies) {
+			if(e.getX() >= player.getX() && e.getX() <= player.getX()+50 && iFrames > 100) {
+				if(e.getY() >= player.getY() && e.getY() <= player.getY() + 77) {
+					player.setCurrHealth(player.getCurrHealth()-5);
+					player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
+					iFrames = 0;
+				}
+			}
+		}
+		
+		
+		
+		
+		
 		}
 	}
 		
