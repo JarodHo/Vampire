@@ -46,7 +46,6 @@ public class Player{
 		//these are the 2 lines of code needed draw an image on the screen
 		Graphics2D g2 = (Graphics2D) g;
 		if (speedX >= 0) {
-			System.out.println("moving right" + speedX);
 			g2.drawImage(img, tx, null);
 		}
 		else {

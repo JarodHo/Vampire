@@ -88,24 +88,33 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		
 		//////////////////////////////////////////////////////////////////Enemy Movement//////////////////////////////////////////////////////////////
 		if(enemies.size() > 0) {
-				for(int i =0; i < enemies.size(); i++) {
-							if(enemies.get(i).getX() < player.getX()) {
-								enemies.get(i).setX(enemies.get(i).getX()+1);
+			for(int i = 0; i < enemies.size(); i++) {
+				if(enemies.get(i).getX() < player.getX()) {
+					enemies.get(i).setX(enemies.get(i).getX()+1);
 //								System.out.println("moving right");
-							}
-							else if(enemies.get(i).getX() > player.getX()) {
-								enemies.get(i).setX(enemies.get(i).getX()-1);
+				}
+				else if(enemies.get(i).getX() > player.getX()) {
+					enemies.get(i).setX(enemies.get(i).getX()-1);
 //								System.out.println("moving left");
-							}
-							if(enemies.get(i).getY() < player.getY()) {
-								enemies.get(i).setY(enemies.get(i).getY()+1);
+				}
+				if(enemies.get(i).getY() < player.getY()) {
+					enemies.get(i).setY(enemies.get(i).getY()+1);
 //								System.out.println("moving down");
-							}
-							else if(enemies.get(i).getY() > player.getY()) {
-								enemies.get(i).setY(enemies.get(i).getY()-1);
+				}
+				else if(enemies.get(i).getY() > player.getY()) {
+					enemies.get(i).setY(enemies.get(i).getY()-1);
 //								System.out.println("moving up");
-							}
+				}
 
+			}
+			//38 x 58
+			for(Enemy enemy1:enemies) {
+				for(Enemy enemy2:enemies) {
+					if(enemy1.getX() < enemy2.getX()+50 && enemy1.getX() > enemy2.getX() && enemy1.getY() < enemy2.getY()+70 && enemy1.getY() > enemy2.getY()) {
+						enemy1.setX(enemy1.getX()+5);
+					}
+					
+				}
 			}
 			
 		
