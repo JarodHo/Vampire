@@ -54,7 +54,7 @@ public class Player{
 	private void update()
 	{	
 		tx.setToTranslation(x, y);
-		tx.scale(0.25, 0.25);
+		tx.scale(0.5, 0.5);
 	}
 	
 	
@@ -78,7 +78,7 @@ public class Player{
 	}
 	private void init(double a, double b) {
 		tx.setToTranslation(a, b);
-		tx.scale(0.25, 0.25);
+		tx.scale(0.5, 0.5);
 	}
 
 	private Image getImage(String path) {
