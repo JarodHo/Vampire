@@ -12,6 +12,7 @@ public class Enemy{
 	private AffineTransform tx;
 	private AffineTransform tx2;
 	private int speedX, speedY = 0;
+	private double attack;
 	private double currHealth;
 	private double maxHealth;
 	private double currHealthPercentage;
@@ -24,13 +25,14 @@ public class Enemy{
 		init(x, y); 				//initialize the location of the image
 									//use your variables
 	}	
-	public Enemy(int x, int y, double maxHealth) {
+	public Enemy(int x, int y, double maxHealth, double attack) {
 		img = getImage("/imgs/vamp.png"); //load the image for Tree
 		img2 = getImage("/imgs/HealthBar.PNG");
 		this.x = x;
 		this.y = y;
 		this.currHealth = maxHealth;
 		this.maxHealth = maxHealth;
+		this.attack = attack;
 		currHealthPercentage = currHealth/this.maxHealth;
 		tx = AffineTransform.getTranslateInstance(x, y);
 		tx2 = AffineTransform.getTranslateInstance(x+2, y+65);
