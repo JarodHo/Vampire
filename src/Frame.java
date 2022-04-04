@@ -53,7 +53,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		g.setFont(c1);
 		g.setColor(Color.black);
 		g.drawString("LV: " + level, 10, 25);
-		g.drawString("Kills until next level: " + (5*level - xpPercent/20), 700, 25);
+		g.drawString("Kills until next level: " + (5*level - xpPercent/(20/level)), 700, 25);
 		if(xpPercent == 100) {
 			level++;
 			xpPercent = 0;
@@ -148,6 +148,9 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		for(Enemy e: enemies) {
 			if(e.getX() >= player.getX() && e.getX() <= player.getX()+50 && iFrames > 100) {
 				if(e.getY() >= player.getY() && e.getY() <= player.getY() + 77) {
+					Color hurt = new Color(255, 0, 0, 127);
+					g.setColor(hurt);
+					g.fillRect(0, 0, 1000000, 1000000);
 					player.setCurrHealth(player.getCurrHealth()-5);
 					player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
 					iFrames = 0;
@@ -179,7 +182,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		t.start();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
-		
+			
 		
 	}
 	@Override
@@ -235,12 +238,14 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					enemy.setSpeedY(2);
 				}
 				else if(keycode == 65) {
+			
 					enemy.setSpeedX(2);
 				}
 				else if(keycode == 83) {
 					enemy.setSpeedY(-2);
 				}
 				else if(keycode == 68) {
+					
 					enemy.setSpeedX(-2);
 				}
 			}
@@ -248,16 +253,22 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		
 		if(keycode == 87) {
 			background.setSpeedY(2);
+			player.changePicture("/imgs/player.gif");
 		}
 		
 		else if(keycode == 65) {
+			player.setRight(false);
 			background.setSpeedX(2);
+			player.changePicture("/imgs/player.gif");
 		}
 		else if(keycode == 83) {
 			background.setSpeedY(-2);
+			player.changePicture("/imgs/player.gif");
 		}
 		else if(keycode == 68) {
+			player.setRight(true);
 			background.setSpeedX(-2);
+			player.changePicture("/imgs/player.gif");
 		}
 	}
 	@Override
@@ -268,9 +279,11 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			for(Enemy enemy:enemies) {
 				if(keycode == 87 || keycode == 83) {
 					enemy.setSpeedY(0);
+					player.changePicture("/imgs/player.png");
 				}
 				else if(keycode == 65 || keycode == 68) {
 					enemy.setSpeedX(0);
+					player.changePicture("/imgs/player.png");
 				}
 			}
 		}

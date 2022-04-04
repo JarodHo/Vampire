@@ -12,6 +12,7 @@ public class Player{
 	private AffineTransform tx;
 	private AffineTransform tx2;
 	private int speedX, speedY = 0;
+	private boolean right = false;
 	public int weaponSpeed = 10;
 	private double currHealth;
 	private double maxHealth;
@@ -45,11 +46,10 @@ public class Player{
 	public void paint(Graphics g) {
 		//these are the 2 lines of code needed draw an image on the screen
 		Graphics2D g2 = (Graphics2D) g;
-		if (speedX >= 0) {
+		if (right) {
 			g2.drawImage(img, tx, null);
 		}
 		else {
-			System.out.println("moving left");
 			g2.drawImage(img, x + img.getWidth(null)/2, y, -img.getWidth(null)/2, img.getHeight(null)/2, null);
 		}
 		
@@ -98,7 +98,7 @@ public class Player{
 	private void init(double a, double b) {
 		tx.setToTranslation(a, b);
 		tx.scale(0.5, 0.5);
-		tx2.setToTranslation(a+2, b+65);
+		tx2.setToTranslation(a+2, b+80);
 		tx2.scale(currHealthPercentage/20, .05);
 	}
 
@@ -128,6 +128,13 @@ public class Player{
 	}
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public boolean isRight() {
+		return right;
+	}
+	public void setRight(boolean right) {
+		this.right = right;
 	}
 	private Image getImage(String path) {
 		Image tempImage = null;
