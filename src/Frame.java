@@ -88,24 +88,25 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		
 		//////////////////////////////////////////////////////////////////Enemy Movement//////////////////////////////////////////////////////////////
 		if(enemies.size() > 0) {
-			for(Enemy enemy:enemies) {
-				if(enemy.getX() < player.getX()) {
-					enemy.setX(enemy.getX()+1);
-//					System.out.println("moving right");
-				}
-				else if(enemy.getX() > player.getX()) {
-					enemy.setX(enemy.getX()-1);
-//					System.out.println("moving left");
-				}
-				if(enemy.getY() < player.getY()) {
-					enemy.setY(enemy.getY()+1);
-//					System.out.println("moving down");
-				}
-				else if(enemy.getY() > player.getY()) {
-					enemy.setY(enemy.getY()-1);
-//					System.out.println("moving up");
-				}	
-		}
+				for(Enemy enemy:enemies) {
+					if(enemy.getX() < player.getX()) {
+						enemy.setX(enemy.getX()+1);
+//						System.out.println("moving right");
+					}
+					else if(enemy.getX() > player.getX()) {
+						enemy.setX(enemy.getX()-1);
+//						System.out.println("moving left");
+					}
+					if(enemy.getY() < player.getY()) {
+						enemy.setY(enemy.getY()+1);
+//						System.out.println("moving down");
+					}
+					else if(enemy.getY() > player.getY()) {
+						enemy.setY(enemy.getY()-1);
+//						System.out.println("moving up");
+					}	
+			}
+			
 		
 /////////////////////////////////////////////Enemy hurt detection///////////////////////////////
 			if(enemies.size() > 0) {
@@ -134,7 +135,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			}
 		////////////////Player hurt detection/////////////////
 		iFrames++;
-		g.drawRect(player.getX(), player.getY(), 50, 77);
 		for(Enemy e: enemies) {
 			if(e.getX() >= player.getX() && e.getX() <= player.getX()+50 && iFrames > 100) {
 				if(e.getY() >= player.getY() && e.getY() <= player.getY() + 77) {
