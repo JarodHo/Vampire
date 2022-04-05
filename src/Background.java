@@ -66,6 +66,22 @@ public class Background{
 	public void setSpeedX(float speed_X) {
 		this.speedX = speed_X;
 	}
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
 	public float getSpeedY() {
 		return speedY;
 	}

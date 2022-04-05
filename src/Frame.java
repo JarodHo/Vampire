@@ -31,6 +31,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	int xpPercent = 0;
 	int level = 1;
 	int iFrames = 0;
+	boolean waterWalker = false;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -135,7 +136,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 								weapons.remove(i);
 								i--;
 								weaponCounter--;
-								System.out.println("hit");
+//								System.out.println("hit");
 								e.setCurrHealth(e.getCurrHealth()-10);
 								e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
 							}
@@ -201,7 +202,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    }
 	    
 	    
-	    System.out.println("pew");
+	    System.out.println(background.getX() + " : " + background.getY());
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
