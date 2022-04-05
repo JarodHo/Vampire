@@ -170,10 +170,14 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			background.setSpeedX(0);
 			background.setSpeedY(0);
 			if(player.getCurrHealth() > 0) {
-				//level up
+				// level up
+				// draw or have image for menu to click one out of three choices for upgrade
+				// check if user has clicked one of the options --> turn gameState back to true
 			}
 			else {
-				//game over screen
+				// game over screen
+				// show score
+				// retry button
 			}
 		}
 	}
