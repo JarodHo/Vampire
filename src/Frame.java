@@ -30,6 +30,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	boolean win = false;
 	int xpPercent = 0;
 	int level = 1;
+	boolean moveUp = true;
+	boolean moveDown = true;
+	boolean moveLeft = true;
+	boolean moveRight = true;
 	int iFrames = 0;
 	boolean waterWalker = false;
 	static Music music = new Music("bgm.wav", true);
@@ -229,6 +233,25 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		repaint();
+		if(background.getY() >= 0) {
+			moveUp = false;
+			background.setSpeedY(0);
+			background.setY(-1);
+		}else {
+			System.out.println("hi");
+			moveUp = true;
+			
+		}
+		if(background.getX() >= 0) {
+			moveLeft = false;
+			background.setSpeedX(0);
+			background.setX(-1);
+		}else {
+			System.out.println("hi");
+			moveLeft = true;
+			
+		}
+		
 	} 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -236,10 +259,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		int keycode = e.getKeyCode();
 		if(enemies.size() > 0) {
 			for(Enemy enemy:enemies) {
-				if(keycode == 87) {
+				if(keycode == 87 && moveUp) {
 					enemy.setSpeedY(2);
 				}
-				else if(keycode == 65) {
+				else if(keycode == 65 && moveLeft) {
 					enemy.setSpeedX(2);
 				}
 				else if(keycode == 83) {
