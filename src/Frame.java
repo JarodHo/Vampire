@@ -42,6 +42,9 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	static Music music = new Music("bgm.wav", true);	
 	static boolean gameState;
 	static Music pew = new Music("pew.wav", false);
+	PowerUps heal = new PowerUps(350, 175+9, 1);
+	PowerUps speed = new PowerUps(350, 300+9, 2);
+	PowerUps damage = new PowerUps(350, 425+9, 3);
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -197,6 +200,9 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				g.fillRect(350, 150, 200, 100);
 				g.fillRect(350, 275, 200, 100);
 				g.fillRect(350, 400, 200, 100);
+				heal.paint(g);
+				speed.paint(g);
+				damage.paint(g);
 				// draw or have image for menu to click one out of three choices for upgrade
 				// check if user has clicked one of the options --> turn gameState back to true
 			}
