@@ -36,7 +36,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	boolean moveRight = true;
 	int iFrames = 0;
 	boolean waterWalker = false;
-	static Music music = new Music("bgm.wav", true);
+	static Music music = new Music("bgm.wav", true);	
 	static Music pew = new Music("pew.wav", false);
 	
 	public void paint(Graphics g) {
