@@ -22,7 +22,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	Player player = new Player(400, 250, 100);	
 	static ArrayList<Enemy> enemies = new ArrayList<Enemy>(); 
 	static ArrayList<Weapon> weapons = new ArrayList<Weapon>();
-	Background background = new Background(0, 0);	
+	Background background = new Background(-757, -915);	
 	int weaponCounter = 1;
 	long start = System.currentTimeMillis();
 	long endTime = start + 9000;
@@ -30,10 +30,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	boolean win = false;
 	int xpPercent = 0;
 	int level = 1;
-	boolean moveUp = true;
-	boolean moveDown = true;
-	boolean moveLeft = true;
-	boolean moveRight = true;
+	boolean movingUp = false;
+	boolean movingDown = false;
+	boolean movingRight = false;
+	boolean movingLeft = false;
 	int iFrames = 0;
 	boolean waterWalker = false;
 	static Music music = new Music("bgm.wav", true);	
@@ -252,21 +252,22 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		// TODO Auto-generated method stub
 		repaint();
 		if(background.getY() >= 0) {
-			moveUp = false;
 			background.setSpeedY(0);
 			background.setY(-1);
-		}else {
-			System.out.println("hi");
-			moveUp = true;
 			
 		}
+		if(background.getY() <= -1830) {
+			background.setSpeedY(0);
+			background.setY(-1829);
+		}
 		if(background.getX() >= 0) {
-			moveLeft = false;
 			background.setSpeedX(0);
 			background.setX(-1);
-		}else {
-			moveLeft = true;
 			
+		}
+		if(background.getX() <= -1515) {
+			background.setSpeedX(0);
+			background.setX(-1514);
 		}
 		
 	} 
@@ -296,21 +297,25 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			if(keycode == 87) {
 				player.changePicture("/imgs/player.gif");
 				background.setSpeedY(2);
+				
 			}
 			
 			else if(keycode == 65) {
 				player.setRight(false);
 				player.changePicture("/imgs/player.gif");
 				background.setSpeedX(2);
+			
 			}
 			else if(keycode == 83) {
 				player.changePicture("/imgs/player.gif");
 				background.setSpeedY(-2);
+				
 			}
 			else if(keycode == 68) {
 				player.setRight(true);
 				player.changePicture("/imgs/player.gif");
 				background.setSpeedX(-2);
+				
 			}
 		}
 				}
