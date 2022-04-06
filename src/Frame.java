@@ -33,10 +33,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	boolean win = false;
 	int xpPercent = 0;
 	int level = 1;
-	boolean movingUp = false;
-	boolean movingDown = false;
-	boolean movingRight = false;
-	boolean movingLeft = false;
+	boolean movingUp = true;
+	boolean movingDown = true;
+	boolean movingRight = true;
+	boolean movingLeft = true;
 	int iFrames = 0;
 	boolean waterWalker = false;
 	static Music music = new Music("bgm.wav", true);	
@@ -276,20 +276,22 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		if(background.getY() >= 0) {
 			background.setSpeedY(0);
 			background.setY(-1);
-			
+			movingUp = false;
 		}
 		if(background.getY() <= -1830) {
 			background.setSpeedY(0);
 			background.setY(-1829);
+			movingDown = false;
 		}
 		if(background.getX() >= 0) {
 			background.setSpeedX(0);
 			background.setX(-1);
-			
+			movingLeft = false;
 		}
 		if(background.getX() <= -1515) {
 			background.setSpeedX(0);
 			background.setX(-1514);
+			movingRight = false;
 		}
 		
 	} 
