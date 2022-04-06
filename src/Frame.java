@@ -37,140 +37,158 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	int iFrames = 0;
 	boolean waterWalker = false;
 	static Music music = new Music("bgm.wav", true);	
+	static boolean gameState;
 	static Music pew = new Music("pew.wav", false);
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		background.paint(g);
 		player.paint(g);
-		for(Enemy enemy:enemies) {
-			enemy.paint(g, player);
-		}
-		
-		
-		for(Weapon weapon:weapons) {
-			if(weapon != null) weapon.paint(g);
-		}
-		
-		
-		//////////////////////////xp bar////////////////////
-		g.setColor(Color.cyan);
-		g.fillRect(0, 10, xpPercent*9, 20);
-		Font c1 = new Font ("Terminal", Font.BOLD, 15);
-		g.setFont(c1);
-		g.setColor(Color.black);
-		g.drawString("LV: " + level, 10, 25);
-		g.drawString("Kills until next level: " + (5*level - xpPercent/20), 700, 25);
-		if(xpPercent == 100) {
-			level++;
-			xpPercent = 0;
-		}
-		/////////////////////////timer//////////////////////
-		Font c2 = new Font ("Terminal", Font.BOLD, 25);
-		g.setFont(c2);
-		g.setColor(Color.black);
-		g.drawString(timer+"", 410, 100);//keep this on top of everything painted
-		start+=2;
-		if((endTime-start)%150 == 0 && !win) {	
-			timer--;
-		}
-		
-		if(start == endTime) {
-			win = true;
-			System.out.println("win");
-		}
-		
-		//////////////////////////Enemy Spawn////////////////////////
-		if(!win) {
-			int spawn = (int)(Math.random() * 200);
-			if(spawn == 2) {
-				enemies.add(new Enemy((int)(Math.random() * 500) + 300, (int)(Math.random() * 300) + 300, 100.0, (Math.random() * 10)));
+		if (gameState) {
+			for(Enemy enemy:enemies) {
+				enemy.paint(g, player);
 			}
-			if(spawn == 3) {
-				enemies.add(new Enemy(-(int)(Math.random() * 500) - 300, -(int)(Math.random() * 300) - 300, 100.0, (Math.random() * 10)));
+			
+			
+			for(Weapon weapon:weapons) {
+				if(weapon != null) weapon.paint(g);
 			}
-		}
-		
-		
-		
-		//////////////////////////////////////////////////////////////////Enemy Movement//////////////////////////////////////////////////////////////
-		if(enemies.size() > 0) {
-			for(int i = 0; i < enemies.size(); i++) {
-				if(enemies.get(i).getX() < player.getX()) {
-					enemies.get(i).setX(enemies.get(i).getX()+1);
-//								System.out.println("moving right");
-				}
-				else if(enemies.get(i).getX() > player.getX()) {
-					enemies.get(i).setX(enemies.get(i).getX()-1);
-//								System.out.println("moving left");
-				}
-				if(enemies.get(i).getY() < player.getY()) {
-					enemies.get(i).setY(enemies.get(i).getY()+1);
-//								System.out.println("moving down");
-				}
-				else if(enemies.get(i).getY() > player.getY()) {
-					enemies.get(i).setY(enemies.get(i).getY()-1);
-//								System.out.println("moving up");
-				}
-
+			
+			
+			//////////////////////////xp bar////////////////////
+			g.setColor(Color.cyan);
+			g.fillRect(0, 10, xpPercent*9, 20);
+			Font c1 = new Font ("Terminal", Font.BOLD, 15);
+			g.setFont(c1);
+			g.setColor(Color.black);
+			g.drawString("LV: " + level, 10, 25);
+			g.drawString("Kills until next level: " + (5*level - xpPercent/20), 700, 25);
+			if(xpPercent == 100) {
+				level++;
+				xpPercent = 0;
+				gameState = false;
 			}
-			//38 x 58
-			for(Enemy enemy1:enemies) {
-				for(Enemy enemy2:enemies) {
-					if(enemy1.getX() < enemy2.getX()+50 && enemy1.getX() > enemy2.getX() && enemy1.getY() < enemy2.getY()+70 && enemy1.getY() > enemy2.getY()) {
-						enemy1.setX(enemy1.getX()+5);
-					}
-					
+			/////////////////////////timer//////////////////////
+			Font c2 = new Font ("Terminal", Font.BOLD, 25);
+			g.setFont(c2);
+			g.setColor(Color.black);
+			g.drawString(timer+"", 410, 100);//keep this on top of everything painted
+			start+=2;
+			if((endTime-start)%150 == 0 && !win) {	
+				timer--;
+			}
+			
+			if(start == endTime) {
+				win = true;
+				System.out.println("win");
+			}
+			
+			//////////////////////////Enemy Spawn////////////////////////
+			if(!win) {
+				int spawn = (int)(Math.random() * 200);
+				if(spawn == 2) {
+					enemies.add(new Enemy((int)(Math.random() * 500) + 300, (int)(Math.random() * 300) + 300, 100.0, (Math.random() * 10)));
+				}
+				if(spawn == 3) {
+					enemies.add(new Enemy(-(int)(Math.random() * 500) - 300, -(int)(Math.random() * 300) - 300, 100.0, (Math.random() * 10)));
 				}
 			}
 			
-		
-/////////////////////////////////////////////Enemy hurt detection///////////////////////////////
+			
+			
+			//////////////////////////////////////////////////////////////////Enemy Movement//////////////////////////////////////////////////////////////
 			if(enemies.size() > 0) {
 				for(int i = 0; i < enemies.size(); i++) {
-					if(enemies.get(i).getCurrHealth() == 0) {
-						enemies.remove(i);
-						xpPercent += 20/level;
+					if(enemies.get(i).getX() < player.getX()) {
+						enemies.get(i).setX(enemies.get(i).getX()+1);
+	//								System.out.println("moving right");
+					}
+					else if(enemies.get(i).getX() > player.getX()) {
+						enemies.get(i).setX(enemies.get(i).getX()-1);
+	//								System.out.println("moving left");
+					}
+					if(enemies.get(i).getY() < player.getY()) {
+						enemies.get(i).setY(enemies.get(i).getY()+1);
+	//								System.out.println("moving down");
+					}
+					else if(enemies.get(i).getY() > player.getY()) {
+						enemies.get(i).setY(enemies.get(i).getY()-1);
+	//								System.out.println("moving up");
+					}
+	
+				}
+				//38 x 58
+				for(Enemy enemy1:enemies) {
+					for(Enemy enemy2:enemies) {
+						if(enemy1.getX() < enemy2.getX()+50 && enemy1.getX() > enemy2.getX() && enemy1.getY() < enemy2.getY()+70 && enemy1.getY() > enemy2.getY()) {
+							enemy1.setX(enemy1.getX()+5);
+						}
+						
 					}
 				}
-			}
-			if(weapons.size() > 0) {
-				for(int i = 1; i < weapons.size(); i++) {
-					for(Enemy e : enemies) {
-						if(weapons.get(i) != null && weapons.get(i).getX() >= e.getX()+5 && weapons.get(i).getX() <= e.getX()+38+5) {
-							if(weapons.get(i).getY() >= e.getY()+7 && weapons.get(i).getY() <= e.getY()+7+58) {
-								weapons.remove(i);
-								i--;
-								weaponCounter--;
-//								System.out.println("hit");
-								e.setCurrHealth(e.getCurrHealth()-10);
-								e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
+				
+			
+	/////////////////////////////////////////////Enemy hurt detection///////////////////////////////
+				if(enemies.size() > 0) {
+					for(int i = 0; i < enemies.size(); i++) {
+						if(enemies.get(i).getCurrHealth() == 0) {
+							enemies.remove(i);
+							xpPercent += 20/level;
+						}
+					}
+				}
+				if(weapons.size() > 0) {
+					for(int i = 1; i < weapons.size(); i++) {
+						for(Enemy e : enemies) {
+							if(weapons.get(i) != null && weapons.get(i).getX() >= e.getX()+5 && weapons.get(i).getX() <= e.getX()+38+5) {
+								if(weapons.get(i).getY() >= e.getY()+7 && weapons.get(i).getY() <= e.getY()+7+58) {
+									weapons.remove(i);
+									i--;
+									weaponCounter--;
+									System.out.println("hit");
+									e.setCurrHealth(e.getCurrHealth()-10);
+									e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
+								}
 							}
 						}
 					}
 				}
-			}
-		////////////////Player hurt detection/////////////////
-		iFrames++;
-		for(Enemy e: enemies) {
-			if(e.getX() >= player.getX() && e.getX() <= player.getX()+50 && iFrames > 100) {
-				if(e.getY() >= player.getY() && e.getY() <= player.getY() + 77) {
-					player.setCurrHealth(player.getCurrHealth()-5);
-					player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
-					iFrames = 0;
-				}	
+				////////////////Player hurt detection/////////////////
+				iFrames++;
+				for(Enemy e: enemies) {
+					if(e.getX() >= player.getX() && e.getX() <= player.getX()+50 && iFrames > 100) {
+						if(e.getY() >= player.getY() && e.getY() <= player.getY() + 77) {
+							player.setCurrHealth(player.getCurrHealth()-5);
+							player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
+							iFrames = 0;
+						}	
+					}
+				}
 			}
 		}
-		
-		
-		
-		
-		
+		else {
+			for(Enemy enemy:enemies) {
+				enemy.setSpeedY(0);
+				enemy.setSpeedX(0);
+			}
+			background.setSpeedX(0);
+			background.setSpeedY(0);
+			if(player.getCurrHealth() > 0) {
+				// level up
+				// draw or have image for menu to click one out of three choices for upgrade
+				// check if user has clicked one of the options --> turn gameState back to true
+			}
+			else {
+				// game over screen
+				// show score
+				// retry button
+			}
 		}
 	}
 		
 	public static void main(String[] arg) {
 		Frame f = new Frame();
+		gameState = true;
 		music.play();
 		weapons.add(null);
 	}
@@ -247,7 +265,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			background.setSpeedX(0);
 			background.setX(-1);
 		}else {
-			System.out.println("hi");
 			moveLeft = true;
 			
 		}
@@ -256,66 +273,72 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		int keycode = e.getKeyCode();
-		if(enemies.size() > 0) {
-			for(Enemy enemy:enemies) {
-				if(keycode == 87 && moveUp) {
-					enemy.setSpeedY(2);
-				}
-				else if(keycode == 65 && moveLeft) {
-					enemy.setSpeedX(2);
-				}
-				else if(keycode == 83) {
-					enemy.setSpeedY(-2);
-				}
-				else if(keycode == 68) {
-					enemy.setSpeedX(-2);
+
+		if(gameState) {
+			int keycode = e.getKeyCode();
+			if(enemies.size() > 0) {
+				for(Enemy enemy:enemies) {
+					if(keycode == 87) {
+						enemy.setSpeedY(2);
+					}
+					else if(keycode == 65) {
+						enemy.setSpeedX(2);
+					}
+					else if(keycode == 83) {
+						enemy.setSpeedY(-2);
+					}
+					else if(keycode == 68) {
+						enemy.setSpeedX(-2);
+					}
 				}
 			}
-		}
 		
-		if(keycode == 87) {
-			player.changePicture("/imgs/player.gif");
-			background.setSpeedY(2);
+			if(keycode == 87) {
+				player.changePicture("/imgs/player.gif");
+				background.setSpeedY(2);
+			}
+			
+			else if(keycode == 65) {
+				player.setRight(false);
+				player.changePicture("/imgs/player.gif");
+				background.setSpeedX(2);
+			}
+			else if(keycode == 83) {
+				player.changePicture("/imgs/player.gif");
+				background.setSpeedY(-2);
+			}
+			else if(keycode == 68) {
+				player.setRight(true);
+				player.changePicture("/imgs/player.gif");
+				background.setSpeedX(-2);
+			}
 		}
-		
-		else if(keycode == 65) {
-			player.setRight(false);
-			player.changePicture("/imgs/player.gif");
-			background.setSpeedX(2);
-		}
-		else if(keycode == 83) {
-			player.changePicture("/imgs/player.gif");
-			background.setSpeedY(-2);
-		}
-		else if(keycode == 68) {
-			player.setRight(true);
-			player.changePicture("/imgs/player.gif");
-			background.setSpeedX(-2);
-		}
-	}
+				}
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		int keycode = e.getKeyCode();
-		if(enemies.size() > 0) {
-			for(Enemy enemy:enemies) {
-				if(keycode == 87 || keycode == 83) {
-					enemy.setSpeedY(0);
-				}
-				else if(keycode == 65 || keycode == 68) {
-					enemy.setSpeedX(0);
+		if(gameState) {
+			int keycode = e.getKeyCode();
+			if(enemies.size() > 0) {
+				for(Enemy enemy:enemies) {
+					if(keycode == 87 || keycode == 83) {
+						enemy.setSpeedY(0);
+					}
+					else if(keycode == 65 || keycode == 68) {
+						enemy.setSpeedX(0);
+					}
 				}
 			}
-		}
-		if(keycode == 87 || keycode == 83) {
-			player.changePicture("/imgs/player.png");
+			if(keycode == 87 || keycode == 83) {
+				player.changePicture("/imgs/player.png");
 				background.setSpeedY(0);
 			}
 			else if(keycode == 65 || keycode == 68) {
 				player.changePicture("/imgs/player.png");
 				background.setSpeedX(0);
 			}
+		}
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
