@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.TimerTask;
 
@@ -42,6 +45,16 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
+		InputStream myFile = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+		try {
+			g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile).deriveFont(Font.BOLD, 12F));
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		background.paint(g);
 		player.paint(g);
 		if (gameState) {
@@ -64,8 +77,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			g.drawString("LV: " + level, 10, 25);
 			g.drawString("Kills until next level: " + (5*level - xpPercent/20), 700, 25);
 			if(xpPercent == 100) {
-				level++;
-				xpPercent = 0;
 				gameState = false;
 			}
 			/////////////////////////timer//////////////////////
@@ -133,7 +144,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					for(int i = 0; i < enemies.size(); i++) {
 						if(enemies.get(i).getCurrHealth() == 0) {
 							enemies.remove(i);
-							xpPercent += 20/level;
+							//xpPercent += 20/level;
+							xpPercent += 100;
 						}
 					}
 				}
@@ -175,6 +187,16 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			background.setSpeedY(0);
 			if(player.getCurrHealth() > 0) {
 				// level up
+				level++;
+				xpPercent = 0;
+				g.setColor(Color.black);
+				g.fillRect(300, 100, 300, 450);
+				g.setColor(Color.white);
+				g.drawString("Choose a Power-up", 340, 130);
+				g.setColor(Color.gray);
+				g.fillRect(350, 150, 200, 100);
+				g.fillRect(350, 275, 200, 100);
+				g.fillRect(350, 400, 200, 100);
 				// draw or have image for menu to click one out of three choices for upgrade
 				// check if user has clicked one of the options --> turn gameState back to true
 			}
