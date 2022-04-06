@@ -41,7 +41,7 @@ public class PowerUps{
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(img, tx, null);
 		x += speedX;
-		y += speedY;
+		y += speedY;	
 		update();
 	}
 	
