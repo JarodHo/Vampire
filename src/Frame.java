@@ -203,6 +203,20 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				heal.paint(g);
 				speed.paint(g);
 				damage.paint(g);
+				g.setColor(Color.white);
+				InputStream myFile2 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+				try {
+					g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile2).deriveFont(Font.BOLD, 8F));
+				} catch (FontFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {	
+					// TODO Auto-generated catch block
+					e.printStackTrace();	
+				}	
+				g.drawString("Regenerate a bit of ", 387, 200);
+				g.drawString("health every second", 387, 210);
+				g.drawString("Increased movement speed", 387, 325);
 				// draw or have image for menu to click one out of three choices for upgrade
 				// check if user has clicked one of the options --> turn gameState back to true
 			}
