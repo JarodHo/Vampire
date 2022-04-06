@@ -39,12 +39,12 @@ public class PowerUps{
 	public void paint(Graphics g) {
 		//these are the 2 lines of code needed draw an image on the screen
 		Graphics2D g2 = (Graphics2D) g;
-		g2.drawImage(img, tx, null);
+		g2.drawImage(img, tx, null);	
 		x += speedX;
 		y += speedY;		
 		update();
 	}
-	
+		
 	private void update()
 	{	
 		tx.setToTranslation(x, y);
