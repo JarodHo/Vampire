@@ -56,7 +56,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace();	
 		}
 		background.paint(g);
 		player.paint(g);
