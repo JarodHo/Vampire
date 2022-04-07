@@ -45,6 +45,9 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	PowerUps heal = new PowerUps(350, 175+9, 1);
 	PowerUps speed = new PowerUps(350, 300+9, 2);
 	PowerUps damage = new PowerUps(350, 425+9, 3);
+	boolean heal1 = false; //turn on booleans for powerups
+	boolean speed1 = false;
+	boolean damage1 = false;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -216,7 +219,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				}	
 				g.drawString("Regenerate a bit of ", 387, 200);
 				g.drawString("health every second", 387, 210);
-				g.drawString("Increased movement speed", 387, 325);
+				g.drawString("Increased movement", 387, 325);
+				g.drawString("speed", 387, 335);
+				g.drawString("Inceased weapon", 387, 450);
+				g.drawString("damage", 387, 460);
 				// draw or have image for menu to click one out of three choices for upgrade
 				// check if user has clicked one of the options --> turn gameState back to true
 			}
