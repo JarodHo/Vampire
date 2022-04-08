@@ -42,6 +42,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	static Music music = new Music("bgm.wav", true);	
 	static boolean gameState;
 	static Music pew = new Music("pew.wav", false);
+	static Music enemyDeath = new Music("enemydeath.wav", false);
 	PowerUps heal = new PowerUps(350, 175+9, 1);
 	PowerUps speed = new PowerUps(350, 300+9, 2);
 	PowerUps damage = new PowerUps(350, 425+9, 3);
@@ -157,6 +158,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					for(int i = 0; i < enemies.size(); i++) {
 						if(enemies.get(i).getCurrHealth() <= 0) {
 							enemies.remove(i);
+							enemyDeath.play();
 							//xpPercent += 20/level;
 							xpPercent += 100;
 						}
