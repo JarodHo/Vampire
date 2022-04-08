@@ -177,7 +177,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 									e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
 								}
 							}
-						}
+						}	
 					}
 				}
 				////////////////Player hurt detection/////////////////
