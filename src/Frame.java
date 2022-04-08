@@ -45,9 +45,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	PowerUps heal = new PowerUps(350, 175+9, 1);
 	PowerUps speed = new PowerUps(350, 300+9, 2);
 	PowerUps damage = new PowerUps(350, 425+9, 3);
-	boolean heal1 = false; //turn on booleans for powerups
-	boolean speed1 = false;
-	boolean damage1 = false;
+	int heal1 = 0;
+	int speed1 = 0;
+	int damage1 = 0;
+	int buffer = 0;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -64,6 +65,12 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		background.paint(g);
 		player.paint(g);
 		if (gameState) {
+			System.out.println(player.getCurrHealth());
+			if(player.getCurrHealth() < 100-(.05*heal1)) {
+				player.setCurrHealth(player.getCurrHealth() + (0.02*heal1));
+				player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
+			}
+
 			for(Enemy enemy:enemies) {
 				enemy.paint(g, player);
 			}
@@ -148,7 +155,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	/////////////////////////////////////////////Enemy hurt detection///////////////////////////////
 				if(enemies.size() > 0) {
 					for(int i = 0; i < enemies.size(); i++) {
-						if(enemies.get(i).getCurrHealth() == 0) {
+						if(enemies.get(i).getCurrHealth() <= 0) {
 							enemies.remove(i);
 							//xpPercent += 20/level;
 							xpPercent += 100;
@@ -164,7 +171,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 									i--;
 									weaponCounter--;
 									System.out.println("hit");
-									e.setCurrHealth(e.getCurrHealth()-10);
+									e.setCurrHealth(e.getCurrHealth()-(10+(damage1*5)));
 									e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
 								}
 							}
@@ -176,7 +183,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				for(Enemy e: enemies) {
 					if(e.getX() >= player.getX() && e.getX() <= player.getX()+50 && iFrames > 100) {
 						if(e.getY() >= player.getY() && e.getY() <= player.getY() + 77) {
-							player.setCurrHealth(player.getCurrHealth()-5);
+							player.setCurrHealth(player.getCurrHealth()-10);
 							player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
 							iFrames = 0;
 						}	
@@ -207,6 +214,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				speed.paint(g);
 				damage.paint(g);
 				g.setColor(Color.white);
+				buffer++;
 				InputStream myFile2 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
 				try {
 					g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile2).deriveFont(Font.BOLD, 8F));
@@ -223,8 +231,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				g.drawString("speed", 387, 335);
 				g.drawString("Inceased weapon", 387, 450);
 				g.drawString("damage", 387, 460);
-				// draw or have image for menu to click one out of three choices for upgrade
-				// check if user has clicked one of the options --> turn gameState back to true
+				
 			}
 			else {
 				// game over screen
@@ -271,9 +278,25 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		    weaponCounter++;
 	    }
 	    
-	    
-	    System.out.println(background.getX() + " : " + background.getY());
 	    pew.play();
+	    
+	    if(!gameState && player.getCurrHealth() > 0) {
+	    	if(x >= 350 && x <= 550 && y >= 150 && y <= 250 && buffer > 40) {
+	    		heal1++;
+	    		gameState = true;
+	    		buffer = 0;
+	    	}
+	    	if(x >= 350 && x <= 550 && y >= 275 && y <= 375 && buffer > 40) {
+	    		speed1++;
+	    		gameState = true;
+	    		buffer = 0;
+	    	}
+	    	if(x >= 350 && x <= 550 && y >= 400 && y <= 500 && buffer > 40) {
+	    		damage1++;
+	    		gameState = true;
+	    		buffer = 0;
+	    	}
+	    }
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
@@ -330,41 +353,41 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			if(enemies.size() > 0) {
 				for(Enemy enemy:enemies) {
 					if(keycode == 87) {
-						enemy.setSpeedY(2);
+						enemy.setSpeedY(2 + speed1);
 					}
 					else if(keycode == 65) {
-						enemy.setSpeedX(2);
+						enemy.setSpeedX(2 + speed1);
 					}
 					else if(keycode == 83) {
-						enemy.setSpeedY(-2);
+						enemy.setSpeedY(-2 - speed1);
 					}
 					else if(keycode == 68) {
-						enemy.setSpeedX(-2);
+						enemy.setSpeedX(-2 - speed1);
 					}
 				}
 			}
 		
 			if(keycode == 87) {
 				player.changePicture("/imgs/player.gif");
-				background.setSpeedY(2);
+				background.setSpeedY(2 + speed1);
 				
 			}
 			
 			else if(keycode == 65) {
 				player.setRight(false);
 				player.changePicture("/imgs/player.gif");
-				background.setSpeedX(2);
+				background.setSpeedX(2 + speed1);
 			
 			}
 			else if(keycode == 83) {
 				player.changePicture("/imgs/player.gif");
-				background.setSpeedY(-2);
+				background.setSpeedY(-2 - speed1);
 				
 			}
 			else if(keycode == 68) {
 				player.setRight(true);
 				player.changePicture("/imgs/player.gif");
-				background.setSpeedX(-2);
+				background.setSpeedX(-2 - speed1);
 				
 			}
 		}

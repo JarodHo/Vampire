@@ -6,7 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 public class Enemy{
-	private int x, y;
+	private double x, y;
 	private Image img; 	
 	private Image img2;
 	private AffineTransform tx;
@@ -51,7 +51,7 @@ public class Enemy{
 			g2.drawImage(img, tx, null);
 		}
 		else {
-			g2.drawImage(img, x + img.getWidth(null)/4, y, -img.getWidth(null)/4, img.getHeight(null)/4, null);
+			g2.drawImage(img, (int)x + img.getWidth(null)/4, (int)y, -img.getWidth(null)/4, img.getHeight(null)/4, null);
 		}
 		
 		g2.drawImage(img2, tx2, null);
@@ -85,13 +85,13 @@ public class Enemy{
 	}
 	
 	
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 	public void setX(int x) {
 		this.x = x;
 	}
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 	public void setY(int y) {
