@@ -8,7 +8,7 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 public class Background{
-	private double x, y;
+	private int x, y;
 	private Image img; 	
 	private AffineTransform tx;
 	private float speedX, speedY = 0;
