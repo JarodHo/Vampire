@@ -29,7 +29,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	int weaponCounter = 1;
 	long start = System.currentTimeMillis();
 	long endTime = start + 9000;
-	int timer = 60;
+	int timer = 120;
 	boolean win = false;
 	int xpPercent = 0;
 	int level = 1;
@@ -64,6 +64,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			// TODO Auto-generated catch block
 			e.printStackTrace();	
 		}
+		if(win) {
+			//win screen
+		}
+		
 		background.paint(g);
 		player.paint(g);
 		if (gameState) {
@@ -107,6 +111,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			if(start == endTime) {
 				win = true;
 				System.out.println("win");
+				gameState = false;
 			}
 			
 			//////////////////////////Enemy Spawn////////////////////////
