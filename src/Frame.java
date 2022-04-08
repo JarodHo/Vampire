@@ -205,7 +205,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 						}	
 					}
 				}
-			}
+			}	
 			if(background.getY() >= 0) {
 				background.setSpeedY(0);
 				background.setY(-1);
