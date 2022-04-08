@@ -353,41 +353,41 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			if(enemies.size() > 0) {
 				for(Enemy enemy:enemies) {
 					if(keycode == 87) {
-						enemy.setSpeedY(2 + speed1);
+						enemy.setSpeedY(1.5 + .05*speed1);
 					}
 					else if(keycode == 65) {
-						enemy.setSpeedX(2 + speed1);
+						enemy.setSpeedX(1.5 + .05*speed1);
 					}
 					else if(keycode == 83) {
-						enemy.setSpeedY(-2 - speed1);
+						enemy.setSpeedY(-1.5 - .05*speed1);
 					}
 					else if(keycode == 68) {
-						enemy.setSpeedX(-2 - speed1);
+						enemy.setSpeedX(-1.5 - .05*speed1);
 					}
 				}
 			}
 		
 			if(keycode == 87) {
 				player.changePicture("/imgs/player.gif");
-				background.setSpeedY(2 + speed1);
+				background.setSpeedY((float)(1.5 + .05*speed1));
 				
 			}
 			
 			else if(keycode == 65) {
 				player.setRight(false);
 				player.changePicture("/imgs/player.gif");
-				background.setSpeedX(2 + speed1);
+				background.setSpeedX((float)(1.5 + .05*speed1));
 			
 			}
 			else if(keycode == 83) {
 				player.changePicture("/imgs/player.gif");
-				background.setSpeedY(-2 - speed1);
+				background.setSpeedY((float)(-1.5 - .05*speed1));
 				
 			}
 			else if(keycode == 68) {
 				player.setRight(true);
 				player.changePicture("/imgs/player.gif");
-				background.setSpeedX(-2 - speed1);
+				background.setSpeedX((float)(-1.5 - .15*speed1));
 				
 			}
 		}

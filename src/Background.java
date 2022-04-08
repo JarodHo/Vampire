@@ -8,7 +8,7 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 public class Background{
-	private int x, y;
+	private double x, y;
 	private Image img; 	
 	private AffineTransform tx;
 	private float speedX, speedY = 0;
@@ -66,19 +66,19 @@ public class Background{
 	public void setSpeedX(float speed_X) {
 		this.speedX = speed_X;
 	}
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 

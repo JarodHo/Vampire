@@ -6,12 +6,12 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 public class Enemy{
-	private int x, y;
+	private double x, y;
 	private Image img; 	
 	private Image img2;
 	private AffineTransform tx;
 	private AffineTransform tx2;
-	private int speedX, speedY = 0;
+	private double speedX, speedY = 0;
 	private double attack;
 	private double currHealth;
 	private double maxHealth;
@@ -25,7 +25,7 @@ public class Enemy{
 		init(x, y); 				//initialize the location of the image
 									//use your variables
 	}	
-	public Enemy(int x, int y, double maxHealth, double attack) {
+	public Enemy(double x, double y, double maxHealth, double attack) {
 		img = getImage("/imgs/vamp.gif"); //load the image for Tree
 		img2 = getImage("/imgs/HealthBar.PNG");
 		this.x = x;
@@ -51,7 +51,7 @@ public class Enemy{
 			g2.drawImage(img, tx, null);
 		}
 		else {
-			g2.drawImage(img, x + img.getWidth(null)/4, y, -img.getWidth(null)/4, img.getHeight(null)/4, null);
+			g2.drawImage(img, (int)x + img.getWidth(null)/4, (int)y, -img.getWidth(null)/4, img.getHeight(null)/4, null);
 		}
 		
 		g2.drawImage(img2, tx2, null);
@@ -63,10 +63,10 @@ public class Enemy{
 		
 	}
 	
-	public int getSpeedX() {
+	public double getSpeedX() {
 		return speedX;
 	}
-	public void setSpeedX(int speedX) {
+	public void setSpeedX(double speedX) {
 		this.speedX = speedX;
 	}
 	private void update()
@@ -85,23 +85,23 @@ public class Enemy{
 	}
 	
 	
-	public int getX() {
+	public double getX() {
 		return x;
 	}
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
-	public int getY() {
+	public double getY() {
 		return y;
 	}
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 
-	public int getSpeedY() {
+	public double getSpeedY() {
 		return speedY;
 	}
-	public void setSpeedY(int speedY) {
+	public void setSpeedY(double speedY) {
 		this.speedY = speedY;
 	}
 
