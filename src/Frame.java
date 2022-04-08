@@ -43,6 +43,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	static boolean gameState;
 	static Music pew = new Music("pew.wav", false);
 	static Music enemyDeath = new Music("enemydeath.wav", false);
+	static Music playerHurt = new Music("playerhurt.wav", false);
 	PowerUps heal = new PowerUps(350, 175+9, 1);
 	PowerUps speed = new PowerUps(350, 300+9, 2);
 	PowerUps damage = new PowerUps(350, 425+9, 3);
@@ -186,6 +187,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					if(e.getX() >= player.getX() && e.getX() <= player.getX()+50 && iFrames > 100) {
 						if(e.getY() >= player.getY() && e.getY() <= player.getY() + 77) {
 							player.setCurrHealth(player.getCurrHealth()-10);
+							playerHurt.play();
 							player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
 							iFrames = 0;
 						}	
