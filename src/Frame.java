@@ -124,6 +124,18 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			//////////////////////////////////////////////////////////////////Enemy Movement//////////////////////////////////////////////////////////////
 			if(enemies.size() > 0) {
 				for(int i = 0; i < enemies.size(); i++) {
+					if(!movingUp) {
+						enemies.get(i).setSpeedY(0);
+					}
+					if(!movingDown) {
+						enemies.get(i).setSpeedY(0);
+					}
+					if(!movingLeft) {
+						enemies.get(i).setSpeedX(0);
+					}
+					if(!movingRight) {
+						enemies.get(i).setSpeedX(0);
+					}
 					if(enemies.get(i).getX() < player.getX()) {
 						enemies.get(i).setX(enemies.get(i).getX()+1);
 	//								System.out.println("moving right");
@@ -366,18 +378,18 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			int keycode = e.getKeyCode();
 			if(enemies.size() > 0) {
 				for(Enemy enemy:enemies) {
-					if(keycode == 87) {
-						enemy.setSpeedY(1.5 + .05*speed1);
-					}
-					else if(keycode == 65) {
-						enemy.setSpeedX(1.5 + .05*speed1);
-					}
-					else if(keycode == 83) {
-						enemy.setSpeedY(-1.5 - .05*speed1);
-					}
-					else if(keycode == 68) {
-						enemy.setSpeedX(-1.5 - .05*speed1);
-					}
+					if(keycode == 87 && movingUp) {
+ 						enemy.setSpeedY(1.5 + .05*speed1);
+ 					}
+					else if(keycode == 65 && movingLeft) {
+ 						enemy.setSpeedX(1.5 + .05*speed1);
+ 					}
+					else if(keycode == 83 && movingDown) {
+ 						enemy.setSpeedY(-1.5 - .05*speed1);
+ 					}
+					else if(keycode == 68 && movingRight) {
+ 						enemy.setSpeedX(-1.5 - .05*speed1);
+ 					}
 				}
 			}
 		
