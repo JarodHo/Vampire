@@ -18,7 +18,7 @@ public class Enemy{
 	private double currHealthPercentage;
 	
 	public Enemy() {
-		img = getImage("/imgs/vamp.png"); //load the image for Tree
+		img = getImage("/imgs/vamp.gif"); //load the image for Tree
 		
 
 		tx = AffineTransform.getTranslateInstance(x, y);
@@ -26,7 +26,7 @@ public class Enemy{
 									//use your variables
 	}	
 	public Enemy(int x, int y, double maxHealth, double attack) {
-		img = getImage("/imgs/vamp.png"); //load the image for Tree
+		img = getImage("/imgs/vamp.gif"); //load the image for Tree
 		img2 = getImage("/imgs/HealthBar.PNG");
 		this.x = x;
 		this.y = y;
