@@ -28,7 +28,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	Background background = new Background(-757, -915);	
 	int weaponCounter = 1;
 	long start = System.currentTimeMillis();
-	long endTime = start + 9000;
+	long endTime = start + 18000;
 	int timer = 120;
 	boolean win = false;
 	int xpPercent = 0;
@@ -51,6 +51,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	int speed1 = 0;
 	int damage1 = 0;
 	int buffer = 0;
+	Red r = new Red(0, 0);
+	double[][] obstacles = new double[4][4];
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -67,11 +69,28 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		if(win) {
 			//win screen
 		}
-		
+		obstacles[0][0] = -515.5;
+		obstacles[0][1] = -748;
+		obstacles[0][2] = -784;
+		obstacles[0][3] = -1038;
+		obstacles[1][0] = -325;
+		obstacles[1][1] = -647.5;
+		obstacles[1][2] = 0;
+		obstacles[1][3] = -318;
+		obstacles[2][0] = -898;
+		obstacles[2][1] = -1093;
+		obstacles[2][2] = 0;
+		obstacles[2][3] = -126;
+		obstacles[3][0] = -1042;
+		obstacles[3][1] = -1087;
+		obstacles[3][2] = 0;
+		obstacles[3][3] = -297;
 		background.paint(g);
 		player.paint(g);
 		if (gameState) {
-			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
+//			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
+			System.out.println(background.getX() + " : " + background.getY());
+			
 			if(player.getCurrHealth() < 100-(.05*heal1)) {
 				player.setCurrHealth(player.getCurrHealth() + (0.02*heal1));
 				player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
@@ -118,10 +137,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			if(!win) {
 				int spawn = (int)(Math.random() * 200);
 				if(spawn == 2) {
-					enemies.add(new Enemy((int)(Math.random() * 500) + 300, (int)(Math.random() * 300) + 300, 100.0, (Math.random() * 10)));
+//					enemies.add(new Enemy((int)(Math.random() * 500) + 300, (int)(Math.random() * 300) + 300, 100.0, (Math.random() * 10)));
 				}
 				if(spawn == 3) {
-					enemies.add(new Enemy(-(int)(Math.random() * 500) - 300, -(int)(Math.random() * 300) - 300, 100.0, (Math.random() * 10)));
+//					enemies.add(new Enemy(-(int)(Math.random() * 500) - 300, -(int)(Math.random() * 300) - 300, 100.0, (Math.random() * 10)));
 				}
 			}
 			
@@ -130,6 +149,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			//////////////////////////////////////////////////////////////////Enemy Movement//////////////////////////////////////////////////////////////
 			if(enemies.size() > 0) {
 				for(int i = 0; i < enemies.size(); i++) {
+
 					if(!movingUp) {
 						enemies.get(i).setSpeedY(0);
 					}
@@ -146,7 +166,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 						enemies.get(i).setX(enemies.get(i).getX()+1);
 	//								System.out.println("moving right");
 					}
-					else if(enemies.get(i).getX() > player.getX()) {
+					else if(enemies.get(i).getX() > player.getX()+38) {
 						enemies.get(i).setX(enemies.get(i).getX()-1);
 	//								System.out.println("moving left");
 					}
@@ -154,7 +174,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 						enemies.get(i).setY(enemies.get(i).getY()+1);
 	//								System.out.println("moving down");
 					}
-					else if(enemies.get(i).getY() > player.getY()) {
+					else if(enemies.get(i).getY() > player.getY() + 58) {
 						enemies.get(i).setY(enemies.get(i).getY()-1);
 	//								System.out.println("moving up");
 					}
@@ -200,9 +220,13 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				}
 				////////////////Player hurt detection/////////////////
 				iFrames++;
+//				Color hurt = new Color(255, 0, 0, 127);
+//				g.setColor(hurt);
 				for(Enemy e: enemies) {
 					if(e.getX() >= player.getX() && e.getX() <= player.getX()+50 && iFrames > 100) {
 						if(e.getY() >= player.getY() && e.getY() <= player.getY() + 77) {
+//							g.fillRect(0, 0, 10000, 10000);
+							r.paint(g);
 							player.setCurrHealth(player.getCurrHealth()-10);
 							playerHurt.play();
 							player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
@@ -375,6 +399,31 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		repaint();
+		obstacles[0][0] = -515.5; //left x
+		obstacles[0][1] = -748; //right x
+		obstacles[0][2] = -784; // top y
+		obstacles[0][3] = -1038;//bottom y
+		obstacles[1][0] = -325;
+		obstacles[1][1] = -647.5;
+		obstacles[1][2] = 0;
+		obstacles[1][3] = -318;
+		obstacles[2][0] = -898;
+		obstacles[2][1] = -1093;
+		obstacles[2][2] = 0;
+		obstacles[2][3] = -126;
+		obstacles[3][0] = -1042;
+		obstacles[3][1] = -1087;
+		obstacles[3][2] = 0;
+		obstacles[3][3] = -297;
+
+//		for(int row = 0; row < obstacles.length; row++) {
+//			if(background.getX() <= obstacles[row][0] && background.getX() >= obstacles[row][1] && background.getY() > obstacles[row][3]) {
+//				background.setY(obstacles[row][3] - 1);
+//			}
+//			if(background.getX() <= obstacles[row][0] && background.getX() >= obstacles[row][1] && background.getY() < obstacles[row][2]) {
+//				background.setY(obstacles[row][2] + 1);
+//			}
+//		}
 		
 	} 
 	@Override
@@ -399,7 +448,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
  					}
 				}
 			}
-		
+			
 			if(keycode == 87) {
 				player.changePicture("/imgs/player.gif");
 				background.setSpeedY((float)(1.5 + .05*speed1));
