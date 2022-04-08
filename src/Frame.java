@@ -190,6 +190,38 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					}
 				}
 			}
+			if(background.getY() >= 0) {
+				background.setSpeedY(0);
+				background.setY(-1);
+				movingUp = false;
+			}
+			else {
+				movingUp = true;
+			}
+			if(background.getY() <= -1830) {
+				background.setSpeedY(0);
+				background.setY(-1829);
+				movingDown = false;
+			}
+			else {
+				movingDown = true;
+			}
+			if(background.getX() >= 0) {
+				background.setSpeedX(0);
+				background.setX(-1);
+				movingLeft = false;
+			}
+			else {
+				movingLeft = true;
+			}
+			if(background.getX() <= -1515) {
+				background.setSpeedX(0);
+				background.setX(-1514);
+				movingRight = false;
+			}
+			else {
+				movingRight = true;
+			}
 		}
 		else {
 			for(Enemy enemy:enemies) {
@@ -322,26 +354,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		repaint();
-		if(background.getY() >= 0) {
-			background.setSpeedY(0);
-			background.setY(-1);
-			movingUp = false;
-		}
-		if(background.getY() <= -1830) {
-			background.setSpeedY(0);
-			background.setY(-1829);
-			movingDown = false;
-		}
-		if(background.getX() >= 0) {
-			background.setSpeedX(0);
-			background.setX(-1);
-			movingLeft = false;
-		}
-		if(background.getX() <= -1515) {
-			background.setSpeedX(0);
-			background.setX(-1514);
-			movingRight = false;
-		}
 		
 	} 
 	@Override
