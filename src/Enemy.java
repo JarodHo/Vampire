@@ -18,7 +18,7 @@ public class Enemy{
 	private double currHealthPercentage;
 	
 	public Enemy() {
-		img = getImage("/imgs/vamp.png"); //load the image for Tree
+		img = getImage("/imgs/vamp.gif"); //load the image for Tree
 		
 
 		tx = AffineTransform.getTranslateInstance(x, y);
