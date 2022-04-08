@@ -67,7 +67,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		background.paint(g);
 		player.paint(g);
 		if (gameState) {
-			System.out.println(player.getCurrHealth());
+			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
 			if(player.getCurrHealth() < 100-(.05*heal1)) {
 				player.setCurrHealth(player.getCurrHealth() + (0.02*heal1));
 				player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
@@ -208,7 +208,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			}	
 			if(background.getY() >= 0) {
 				background.setSpeedY(0);
-				background.setY(-1);
+				background.setY(0);
 				movingUp = false;
 			}
 			else {
@@ -216,7 +216,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			}
 			if(background.getY() <= -1830) {
 				background.setSpeedY(0);
-				background.setY(-1829);
+				background.setY(-1830);
 				movingDown = false;
 			}
 			else {
@@ -224,7 +224,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			}
 			if(background.getX() >= 0) {
 				background.setSpeedX(0);
-				background.setX(-1);
+				background.setX(0);
 				movingLeft = false;
 			}
 			else {
@@ -232,7 +232,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			}
 			if(background.getX() <= -1515) {
 				background.setSpeedX(0);
-				background.setX(-1514);
+				background.setX(-1515);
 				movingRight = false;
 			}
 			else {
