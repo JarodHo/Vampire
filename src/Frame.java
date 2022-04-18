@@ -25,7 +25,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	Player player = new Player(400, 250, 100);	
 	static ArrayList<Enemy> enemies = new ArrayList<Enemy>(); 
 	static ArrayList<Weapon> weapons = new ArrayList<Weapon>();
-	Background background = new Background(-757, -915);	
+	Background background = new Background(-800, -750);	
 	int weaponCounter = 1;
 	long start = System.currentTimeMillis();
 	long endTime = start + 18000;
@@ -69,22 +69,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		if(win) {
 			//win screen
 		}
-		obstacles[0][0] = -515.5;
-		obstacles[0][1] = -748;
-		obstacles[0][2] = -784;
-		obstacles[0][3] = -1038;
-		obstacles[1][0] = -325;
-		obstacles[1][1] = -647.5;
-		obstacles[1][2] = 0;
-		obstacles[1][3] = -318;
-		obstacles[2][0] = -898;
-		obstacles[2][1] = -1093;
-		obstacles[2][2] = 0;
-		obstacles[2][3] = -126;
-		obstacles[3][0] = -1042;
-		obstacles[3][1] = -1087;
-		obstacles[3][2] = 0;
-		obstacles[3][3] = -297;
 		background.paint(g);
 		player.paint(g);
 		if (gameState) {
@@ -267,6 +251,40 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			else {
 				movingRight = true;
 			}
+			int counter = 0;
+			for(double[] obstacle:obstacles) {
+				System.out.println("obstacle: " + counter);
+				counter++;
+				if(counter == 4) {
+					counter = 0;
+				}
+				System.out.println(obstacle[0] + " " + obstacle[1] + " " + obstacle[2] + " " + obstacle[3]);
+				System.out.println();
+				if(background.getX() > obstacle[0]-2 && background.getX() < obstacle[0] && background.getY() < obstacle[2]	&& background.getY() > obstacle[3]) {
+					System.out.println("can't move right");
+					background.setSpeedX(0);
+					background.setX(obstacle[0]);
+					movingRight = false;
+				}
+				if(background.getX() < obstacle[1]+2 && background.getX() > obstacle[1] && background.getY() < obstacle[2]	&& background.getY() > obstacle[3]) {
+					System.out.println("can't move left");
+					background.setSpeedX(0);
+					background.setX(obstacle[1]);
+					movingLeft = false;
+				}
+				if(background.getY() > obstacle[2]-2 && background.getY() < obstacle[2]&& background.getX() < obstacle[0] && background.getX() > obstacle[1]) {
+					System.out.println("can't move down");
+					background.setSpeedY(0);
+					background.setY(obstacle[2]);
+					movingDown = false;
+				}
+				if(background.getY() < obstacle[3]+2 && background.getY() > obstacle[3] && background.getX() < obstacle[0] && background.getX() > obstacle[1]) {
+					System.out.println("can't move up");
+					background.setSpeedY(0);
+					background.setY(obstacle[3]);
+					movingUp = false;
+				}
+			}			
 		}
 		else {
 			for(Enemy enemy:enemies) {
@@ -337,8 +355,22 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		t.start();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
-		
-		
+		obstacles[0][0] = -515.5;
+		obstacles[0][1] = -748;
+		obstacles[0][2] = -784;
+		obstacles[0][3] = -1038;
+		obstacles[1][0] = -325;
+		obstacles[1][1] = -647.5;
+		obstacles[1][2] = 0;
+		obstacles[1][3] = -318;
+		obstacles[2][0] = -898;
+		obstacles[2][1] = -1093;
+		obstacles[2][2] = 0;
+		obstacles[2][3] = -126;
+		obstacles[3][0] = -1042;
+		obstacles[3][1] = -1087;
+		obstacles[3][2] = 0;
+		obstacles[3][3] = -297;
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
