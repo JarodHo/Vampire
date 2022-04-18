@@ -120,11 +120,17 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				timer--;
 			}
 			
-			if(start == endTime) {
+			
+			
+			
+			////////////////////////////////////////////win/////////////////////////////
+			
+			if(timer == 0 && alive) {
 				win = true;
 				System.out.println("win");
-				gameState = false;
-			}
+				gameState = false;//start here/////////////dfadfasdf///////////////
+			}	
+			
 			
 			//////////////////////////Enemy Spawn////////////////////////
 			if(!win) {
