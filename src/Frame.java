@@ -26,6 +26,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	static ArrayList<Enemy> enemies = new ArrayList<Enemy>(); 
 	static ArrayList<Weapon> weapons = new ArrayList<Weapon>();
 	Background background = new Background(-800, -750);	
+	Background loseScreenVampire = new Background(350, 200);
 	int weaponCounter = 1;
 	long start = System.currentTimeMillis();
 	long endTime = start + 18000;
@@ -53,6 +54,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	int buffer = 0;
 	Red r = new Red(0, 0);
 	double[][] obstacles = new double[4][4];
+	int score = 0;
+	boolean alive = true;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -70,7 +73,13 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			//win screen
 		}
 		background.paint(g);
-		player.paint(g);
+		if(alive) {
+			player.paint(g);
+		}
+		if(player.getCurrHealth() <= 0) {
+			alive = false;
+			gameState = false;
+		}
 		if (gameState) {
 //			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
 			System.out.println(background.getX() + " : " + background.getY());
@@ -121,10 +130,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			if(!win) {
 				int spawn = (int)(Math.random() * 200);
 				if(spawn == 2) {
-//					enemies.add(new Enemy((int)(Math.random() * 500) + 300, (int)(Math.random() * 300) + 300, 100.0, (Math.random() * 10)));
+					enemies.add(new Enemy((int)(Math.random() * 500) + 300, (int)(Math.random() * 300) + 300, 100.0, (Math.random() * 10)));
 				}
 				if(spawn == 3) {
-//					enemies.add(new Enemy(-(int)(Math.random() * 500) - 300, -(int)(Math.random() * 300) - 300, 100.0, (Math.random() * 10)));
+					enemies.add(new Enemy(-(int)(Math.random() * 500) - 300, -(int)(Math.random() * 300) - 300, 100.0, (Math.random() * 10)));
 				}
 			}
 			
@@ -183,6 +192,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 							enemyDeath.play();
 							//xpPercent += 20/level;
 							xpPercent += 100;
+							score += 50;
 						}
 					}
 				}
@@ -328,10 +338,42 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				g.drawString("damage", 387, 460);
 				
 			}
-			else {
-				// game over screen
-				// show score
-				// retry button
+			else if(!alive){
+				g.setColor(Color.gray);
+				g.fillRect(0, 0, 1000, 1000);
+				g.setColor(Color.red);
+				InputStream myFile3 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+				try {
+					g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile3).deriveFont(Font.BOLD, 36F));
+				} catch (FontFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {	
+					// TODO Auto-generated catch block
+					e.printStackTrace();	
+				}	
+				g.drawString("Game Over", 300, 200);
+				loseScreenVampire.changePicture("/imgs/vamp.gif");
+				loseScreenVampire.scale();
+				loseScreenVampire.paint(g);
+				g.setColor(Color.black);
+				g.drawString("Your score: "+ score, 200, 150);
+				g.fillRect(375, 500, 150, 50);
+				InputStream myFile4 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+				try {
+					g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile4).deriveFont(Font.BOLD, 24F));
+				} catch (FontFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {	
+					// TODO Auto-generated catch block
+					e.printStackTrace();	
+				}	
+				g.setColor(Color.white);
+				g.drawString("Retry", 390, 540);
+				for(int i =0; i < enemies.size(); i++) {
+	    			enemies.remove(0);
+	    		}
 			}
 		}
 	}
@@ -404,6 +446,31 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    		damage1++;
 	    		gameState = true;
 	    		buffer = 0;
+	    	}
+	    }
+	    if(!alive && !gameState) {
+//	    	g.fillRect(375, 500, 150, 50);
+	    	if(x >= 375 && x <= 375+180) {
+	    		if(y >= 500 && y <= 500 + 80) {
+	    			System.out.println("a");
+	    			alive = true;
+		    		gameState = true;
+		    		
+		    		player.setX(400);
+		    		player.setY(250);
+		    		player.setCurrHealth(100);
+		    		player.setCurrHealthPercentage(player.getCurrHealth() / player.getMaxHealth());
+		    		start = System.currentTimeMillis();
+		    		endTime = start + 18000;
+		    		timer = 120;
+		    		win = false;
+		    		xpPercent = 0;
+		    		level = 1;
+		    		score = 0;
+		    		heal1 = 0;
+		    		speed1 = 0;
+		    		damage1 = 0;
+	    		}
 	    	}
 	    }
 	}

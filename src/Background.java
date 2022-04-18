@@ -49,7 +49,10 @@ public class Background{
 		tx.setToTranslation(a, b);
 		tx.scale(2, 2);
 	}
-
+	public void scale() {
+		tx.setToTranslation(x, y);
+		tx.scale(1, 1);
+	}
 	private Image getImage(String path) {
 		Image tempImage = null;
 		try {
