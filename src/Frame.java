@@ -56,6 +56,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	double[][] obstacles = new double[4][4];
 	int score = 0;
 	boolean alive = true;
+	boolean levelUp = false;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -106,8 +107,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			g.setFont(c1);
 			g.setColor(Color.black);
 			g.drawString("LV: " + level, 10, 25);
-			g.drawString("Kills until next level: " + (5*level - xpPercent/20), 700, 25);
-			if(xpPercent == 100) {
+			g.drawString("Kills until next level: " + (5*level - (xpPercent*level)/20), 700, 25);
+			if(xpPercent >= 100) {
 				gameState = false;
 			}
 			/////////////////////////timer//////////////////////
@@ -117,7 +118,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			g.drawString(timer+"", 410, 100);//keep this on top of everything painted
 			start+=2;
 			if((endTime-start)%150 == 0 && !win) {	
-				timer--;
+				timer--;	
 			}
 
 			//////////////////////////Enemy Spawn////////////////////////
@@ -299,7 +300,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			background.setSpeedY(0);
 			if(player.getCurrHealth() > 0 && !win) {
 				// level up
-				level++;
+				if(!levelUp) { 
+					level++;
+					levelUp = true;
+				}
 				xpPercent = 0;
 				g.setColor(Color.black);
 				g.fillRect(300, 100, 300, 450);
@@ -475,16 +479,19 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    		heal1++;
 	    		gameState = true;
 	    		buffer = 0;
+	    		levelUp = false;
 	    	}
 	    	if(x >= 350 && x <= 550 && y >= 275 && y <= 375 && buffer > 40) {
 	    		speed1++;
 	    		gameState = true;
 	    		buffer = 0;
+	    		levelUp = false;
 	    	}
 	    	if(x >= 350 && x <= 550 && y >= 400 && y <= 500 && buffer > 40) {
 	    		damage1++;
 	    		gameState = true;
 	    		buffer = 0;
+	    		levelUp = false;
 	    	}
 	    }
 	    if((!alive && !gameState) || win) {
