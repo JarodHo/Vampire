@@ -82,7 +82,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		}
 		if (gameState) {
 //			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
-			System.out.println(background.getX() + " : " + background.getY());
+//			System.out.println(background.getX() + " : " + background.getY());
 			
 			if(player.getCurrHealth() < 100-(.05*heal1)) {
 				player.setCurrHealth(player.getCurrHealth() + (0.02*heal1));
@@ -119,19 +119,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			if((endTime-start)%150 == 0 && !win) {	
 				timer--;
 			}
-			
-			
-			
-			
-			////////////////////////////////////////////win/////////////////////////////
-			
-			if(timer == 0 && alive) {
-				win = true;
-				System.out.println("win");
-				gameState = false;//start here/////////////dfadfasdf///////////////
-			}	
-			
-			
+
 			//////////////////////////Enemy Spawn////////////////////////
 			if(!win) {
 				int spawn = (int)(Math.random() * 200);
@@ -196,8 +184,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 						if(enemies.get(i).getCurrHealth() <= 0) {
 							enemies.remove(i);
 							enemyDeath.play();
-							//xpPercent += 20/level;
-							xpPercent += 100;
+							xpPercent += 20/level;
+//							xpPercent += 100;
 							score += 50;
 						}
 					}
@@ -269,13 +257,13 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			}
 			int counter = 0;
 			for(double[] obstacle:obstacles) {
-				System.out.println("obstacle: " + counter);
+//				System.out.println("obstacle: " + counter);
 				counter++;
 				if(counter == 4) {
 					counter = 0;
 				}
-				System.out.println(obstacle[0] + " " + obstacle[1] + " " + obstacle[2] + " " + obstacle[3]);
-				System.out.println();
+//				System.out.println(obstacle[0] + " " + obstacle[1] + " " + obstacle[2] + " " + obstacle[3]);
+//				System.out.println();
 				if(background.getX() > obstacle[0]-2 && background.getX() < obstacle[0] && background.getY() < obstacle[2]	&& background.getY() > obstacle[3]) {
 					System.out.println("can't move right");
 					background.setSpeedX(0);
@@ -309,7 +297,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			}
 			background.setSpeedX(0);
 			background.setSpeedY(0);
-			if(player.getCurrHealth() > 0) {
+			if(player.getCurrHealth() > 0 && !win) {
 				// level up
 				level++;
 				xpPercent = 0;
@@ -381,6 +369,51 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    			enemies.remove(0);
 	    		}
 			}
+				
+		}
+		////////////////////////////////////////////win/////////////////////////////
+				
+		if(timer == -1 && alive) {
+		win = true;
+		System.out.println("win");
+		gameState = false;
+		
+		g.setColor(Color.gray);
+		g.fillRect(0, 0, 1000, 1000);
+		g.setColor(Color.white);
+		InputStream myFile3 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+		try {
+		g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile3).deriveFont(Font.BOLD, 36F));
+		} catch (FontFormatException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		} catch (IOException e) {	
+		// TODO Auto-generated catch block
+		e.printStackTrace();	
+		}	
+		g.drawString("You survived!", 200, 100);
+		loseScreenVampire.changePicture("/imgs/player.gif");
+		loseScreenVampire.scale2();
+		loseScreenVampire.setX(370);
+		loseScreenVampire.paint(g);
+		g.setColor(Color.black);
+		g.drawString("Your score: "+ score, 200, 150);
+		g.fillRect(375, 500, 150, 50);
+		InputStream myFile4 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+		try {
+		g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile4).deriveFont(Font.BOLD, 12F));
+		} catch (FontFormatException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		} catch (IOException e) {	
+		// TODO Auto-generated catch block
+		e.printStackTrace();	
+		}	
+		g.setColor(Color.white);
+		g.drawString("Play again", 390, 535);
+		for(int i =0; i < enemies.size(); i++) {
+		enemies.remove(0);
+		}
 		}
 	}
 		
@@ -454,7 +487,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    		buffer = 0;
 	    	}
 	    }
-	    if(!alive && !gameState) {
+	    if((!alive && !gameState) || win) {
 //	    	g.fillRect(375, 500, 150, 50);
 	    	if(x >= 375 && x <= 375+180) {
 	    		if(y >= 500 && y <= 500 + 80) {
@@ -504,31 +537,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		repaint();
-		obstacles[0][0] = -515.5; //left x
-		obstacles[0][1] = -748; //right x
-		obstacles[0][2] = -784; // top y
-		obstacles[0][3] = -1038;//bottom y
-		obstacles[1][0] = -325;
-		obstacles[1][1] = -647.5;
-		obstacles[1][2] = 0;
-		obstacles[1][3] = -318;
-		obstacles[2][0] = -898;
-		obstacles[2][1] = -1093;
-		obstacles[2][2] = 0;
-		obstacles[2][3] = -126;
-		obstacles[3][0] = -1042;
-		obstacles[3][1] = -1087;
-		obstacles[3][2] = 0;
-		obstacles[3][3] = -297;
-
-//		for(int row = 0; row < obstacles.length; row++) {
-//			if(background.getX() <= obstacles[row][0] && background.getX() >= obstacles[row][1] && background.getY() > obstacles[row][3]) {
-//				background.setY(obstacles[row][3] - 1);
-//			}
-//			if(background.getX() <= obstacles[row][0] && background.getX() >= obstacles[row][1] && background.getY() < obstacles[row][2]) {
-//				background.setY(obstacles[row][2] + 1);
-//			}
-//		}
 		
 	} 
 	@Override
