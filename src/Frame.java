@@ -32,6 +32,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	long endTime = start + 18000;
 	int timer = 120;
 	boolean win = false;
+	boolean menu = true;
 	int xpPercent = 0;
 	int level = 1;
 	boolean movingUp = true;
@@ -70,18 +71,50 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			// TODO Auto-generated catch block
 			e.printStackTrace();	
 		}
-		if(win) {
-			//win screen
+		if(menu) {
+			g.setColor(Color.gray);
+			g.fillRect(0, 0, 1000, 1000);
+			g.setColor(Color.white);
+			InputStream myFile3 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+			try {
+			g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile3).deriveFont(Font.BOLD, 36F));
+			} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			} catch (IOException e) {	
+			// TODO Auto-generated catch block
+			e.printStackTrace();	
+			}	
+			g.drawString("Vampire Survivors", 200, 100);
+			loseScreenVampire.changePicture("/imgs/player.gif");
+			loseScreenVampire.scale2();
+			loseScreenVampire.setX(370);
+			loseScreenVampire.paint(g);
+			g.setColor(Color.black);
+			g.drawString("Your score: "+ score, 200, 150);
+			g.fillRect(375, 500, 150, 50);
+			InputStream myFile4 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+			try {
+			g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile4).deriveFont(Font.BOLD, 12F));
+			} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			} catch (IOException e) {	
+			// TODO Auto-generated catch block
+			e.printStackTrace();	
+			}	
+			g.setColor(Color.white);
+			g.drawString("Play again", 390, 535);
 		}
 		background.paint(g);
-		if(alive) {
+		if(alive && !menu) {
 			player.paint(g);
 		}
-		if(player.getCurrHealth() <= 0) {
+		if(player.getCurrHealth() <= 0 && !menu) {
 			alive = false;
 			gameState = false;
 		}
-		if (gameState) {
+		if (gameState && !menu) {
 //			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
 //			System.out.println(background.getX() + " : " + background.getY());
 			
