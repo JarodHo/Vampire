@@ -12,13 +12,15 @@ public class PowerUps{
 	private Image img; 	
 	private AffineTransform tx;
 	private float speedX, speedY = 0;
+	private int picture;
 	
 	public PowerUps(int x, int y, int picture) {
-		if(picture == 1) {
+		this.picture = picture;
+		if(this.picture == 0) {
 			img = getImage("/imgs/heal.png"); //load the image for Tree
-		}else if( picture == 2) {
+		}else if( this.picture == 1) {
 			img = getImage("/imgs/Speed.png"); //load the image for Tree
-		}else if (picture == 3) {
+		}else if (this.picture == 2) {
 			img = getImage("/imgs/Strength.png"); //load the image for Tree
 		}
 		

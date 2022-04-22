@@ -47,17 +47,24 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	static Music pew = new Music("pew.wav", false);
 	static Music enemyDeath = new Music("enemydeath.wav", false);
 	static Music playerHurt = new Music("playerhurt.wav", false);
-	PowerUps heal = new PowerUps(350, 175+9, 1);
-	PowerUps speed = new PowerUps(350, 300+9, 2);
-	PowerUps damage = new PowerUps(350, 425+9, 3);
+	PowerUps heal = new PowerUps(350, 175+9, 0);//change these to numbers
+	PowerUps speed = new PowerUps(350, 300+9, 1);
+	PowerUps damage = new PowerUps(350, 425+9, 2);
 	static ArrayList<Integer> powerUps = new ArrayList<Integer>();
-
+	static ArrayList<Integer> shown = new ArrayList<Integer>();
 	int buffer = 0;
 	Red r = new Red(0, 0);
 	double[][] obstacles = new double[4][4];
 	int score = 0;
 	boolean alive = true;
 	boolean levelUp = false;
+	int x = 387;
+	int y1 = 200;
+	int y2 = 210;
+	int y3 = 325;
+	int y4 = 335;
+	int y5 = 450;
+	int y6 = 460;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -103,7 +110,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			e.printStackTrace();	
 			}	
 			g.setColor(Color.white);
-			g.drawString("Play again", 387, 533);
+			g.drawString("Play", 425, 533);
 		}
 		else {
 			background.paint(g);
@@ -118,7 +125,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	//			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
 	//			System.out.println(background.getX() + " : " + background.getY());
 				
-				//System.out.println(powerUps);
+				System.out.println(powerUps);
+
 				if(player.getCurrHealth() < 100-(.05*powerUps.get(0))) {
 				player.setCurrHealth(player.getCurrHealth() + (0.02*powerUps.get(0)));
 				player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
@@ -339,8 +347,23 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				background.setSpeedY(0);
 				if(player.getCurrHealth() > 0 && !win) {
 					// level up
+
 					if(!levelUp) { 
 						level++;
+							int random1 = (int)(Math.random() * 3);
+							int random2 = (int)(Math.random() * 3);
+							int random3 = (int)(Math.random() * 3);
+							while(random1 == random2) {
+								random2 = (int)(Math.random() * 3);
+							}
+							while(random1 == random3 || random2 == random3) {
+								random3 = (int)(Math.random() * 3);
+							}
+						shown.set(0, random1);
+						shown.set(1, random2);
+						shown.set(2, random3);					
+						
+						System.out.println(shown);
 						levelUp = true;
 					}
 					xpPercent = 0;
@@ -366,13 +389,34 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					} catch (IOException e) {	
 						// TODO Auto-generated catch block
 						e.printStackTrace();	
-					}	
-					g.drawString("Regenerate a bit of ", 387, 200);
-					g.drawString("health every second", 387, 210);
-					g.drawString("Increased movement", 387, 325);
-					g.drawString("speed", 387, 335);
-					g.drawString("Inceased weapon", 387, 450);
-					g.drawString("damage", 387, 460);
+					}
+					
+					
+					/*
+					 * for(int i = 0; i < shown.size(); i++) {
+						if(shown.get(i) == 0) {
+							if(i == 0){
+								g.drawString("Regenerate a bit of ", x, y1);
+								g.drawString("health every second", x, y2);
+								
+							}else if (i == 1){
+								g.drawString("Regenerate a bit of ", x, y3);
+								g.drawString("health every second", x, y4);
+							}else if (i == 2){
+								g.drawString("Regenerate a bit of ", x, y5);
+								g.drawString("health every second", x, y6);
+							}
+							
+						}
+					}
+					 */
+					
+					g.drawString("Regenerate a bit of ", x, 200);
+					g.drawString("health every second", x, 210);
+					g.drawString("Increased movement", x, 325);
+					g.drawString("speed", x, 335);
+					g.drawString("Inceased weapon", x, 450);
+					g.drawString("damage", x, 460);
 					
 				}
 				else if(!alive){
@@ -503,6 +547,9 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				powerUps.add(0); //speed
 				powerUps.add(0); //damage
 				powerUps.add(0); //life steal (on kill)
+				shown.add(0);
+				shown.add(0);
+				shown.add(0);
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
