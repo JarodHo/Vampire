@@ -117,7 +117,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	//			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
 	//			System.out.println(background.getX() + " : " + background.getY());
 				
-				System.out.println(powerUps);
+				//System.out.println(powerUps);
 				if(player.getCurrHealth() < 100-(.05*powerUps.get(0))) {
 				player.setCurrHealth(player.getCurrHealth() + (0.02*powerUps.get(0)));
 				player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());

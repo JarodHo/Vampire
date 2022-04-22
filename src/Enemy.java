@@ -40,14 +40,14 @@ public class Enemy{
 				init(x,y);
 			}
 			else if(enemyType == 1) {
-				img = getImage("/imgs/vamp.gif"); //load the image for Tree
+				img = getImage("/imgs/bat.gif"); //load the image for Tree
 				img2 = getImage("/imgs/HealthBar.PNG");
-				this.currHealth = 100.0;
-				this.maxHealth = 100.0;
-				this.attack = (Math.random() * 10);
+				this.currHealth = 50.0;
+				this.maxHealth = 50.0;
+				this.attack = (Math.random() * 15);
 				currHealthPercentage = currHealth/this.maxHealth;
 				tx = AffineTransform.getTranslateInstance(x, y);
-				tx2 = AffineTransform.getTranslateInstance(x+2, y+65);
+				tx2 = AffineTransform.getTranslateInstance(x+10, y+65);
 				init(x,y);
 			}
 			else if(enemyType == 2) {
@@ -97,7 +97,16 @@ public class Enemy{
 	{	
 		tx.setToTranslation(x, y);
 		tx.scale(0.25, 0.25);
-		tx2.setToTranslation(x+2, y+65);
+		if(enemyType == 0) {
+			tx2.setToTranslation(x+2, y+65);
+		}
+		else if(enemyType == 1) {
+			tx2.setToTranslation(x+10, y+65);
+		}
+		else {
+			tx2.setToTranslation(x+2, y+65);
+		}
+		
 		tx2.scale(currHealthPercentage/20, .05);	
 	}
 	private void init(double a, double b) {
