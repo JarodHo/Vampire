@@ -184,19 +184,19 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 							enemies.get(i).setSpeedX(0);
 						}
 						if(enemies.get(i).getX() < player.getX()) {
-							enemies.get(i).setX(enemies.get(i).getX()+1);
+							enemies.get(i).setX(enemies.get(i).getX()+1+(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving right");
 						}
 						else if(enemies.get(i).getX() > player.getX()+38) {
-							enemies.get(i).setX(enemies.get(i).getX()-1);
+							enemies.get(i).setX(enemies.get(i).getX()-1-(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving left");
 						}
 						if(enemies.get(i).getY() < player.getY()) {
-							enemies.get(i).setY(enemies.get(i).getY()+1);
+							enemies.get(i).setY(enemies.get(i).getY()+1+(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving down");
 						}
 						else if(enemies.get(i).getY() > player.getY() + 58) {
-							enemies.get(i).setY(enemies.get(i).getY()-1);
+							enemies.get(i).setY(enemies.get(i).getY()-1-(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving up");
 						}
 		
