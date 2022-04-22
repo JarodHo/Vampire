@@ -17,9 +17,10 @@ public class Enemy{
 	private double maxHealth;
 	private double currHealthPercentage;
 	private int enemyType;
-	private int level = 1;
+	private int level;
 	
-	public Enemy(boolean left) {
+	public Enemy(int level, boolean left) {
+		this.level = level;
 		if(left) {
 			this.x = -(int)(Math.random() * 500) - 300;
 			this.y = -(int)(Math.random() * 300) - 300;

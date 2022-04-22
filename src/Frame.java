@@ -35,6 +35,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	boolean menu = true;
 	int xpPercent = 0;
 	int level = 1;
+	int enemyLevel = 1;
 	boolean movingUp = true;
 	boolean movingDown = true;
 	boolean movingRight = true;
@@ -153,15 +154,18 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				if((endTime-start)%150 == 0 && !win) {	
 					timer--;	
 				}
+				if((endTime-start)%150 == 90 || (endTime-start)%150 == 60 || (endTime-start)%150 == 30) {
+					enemyLevel++;
+				}
 	
 				//////////////////////////Enemy Spawn////////////////////////
 				if(!win) {
 					int spawn = (int)(Math.random() * 200);
 					if(spawn == 2) {
-						enemies.add(new Enemy(false));
+						enemies.add(new Enemy(enemyLevel, false));
 					}
 					if(spawn == 3) {
-						enemies.add(new Enemy(true));
+						enemies.add(new Enemy(enemyLevel,true));
 					}
 				}
 				
@@ -235,7 +239,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 										i--;
 										weaponCounter--;
 										System.out.println("hit");
-										e.setCurrHealth(e.getCurrHealth()-(10+(powerUps.get(2)*5)));
+										e.setCurrHealth(e.getCurrHealth()-(15+(powerUps.get(2)*5)));
 										e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
 									}
 								}
