@@ -49,9 +49,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	PowerUps heal = new PowerUps(350, 175+9, 1);
 	PowerUps speed = new PowerUps(350, 300+9, 2);
 	PowerUps damage = new PowerUps(350, 425+9, 3);
-	int heal1 = 0;
-	int speed1 = 0;
-	int damage1 = 0;
+	static ArrayList<Integer> powerUps = new ArrayList<Integer>();
+
 	int buffer = 0;
 	Red r = new Red(0, 0);
 	double[][] obstacles = new double[4][4];
@@ -118,9 +117,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	//			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
 	//			System.out.println(background.getX() + " : " + background.getY());
 				
-				if(player.getCurrHealth() < 100-(.05*heal1)) {
-					player.setCurrHealth(player.getCurrHealth() + (0.02*heal1));
-					player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
+				System.out.println(powerUps);
+				if(player.getCurrHealth() < 100-(.05*powerUps.get(0))) {
+				player.setCurrHealth(player.getCurrHealth() + (0.02*powerUps.get(0)));
+				player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
 				}
 	
 				for(Enemy enemy:enemies) {
@@ -219,6 +219,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 								enemies.remove(i);
 								enemyDeath.play();
 								xpPercent += 20/level;
+	//							player.setCurrHealth(player.getCurrHealth() + 2 * powerUps.get(3));
+	//							player.setCurrHealthPercentage(player.getCurrHealth() / player.getMaxHealth());
 	//							xpPercent += 100;
 								score += 50;
 							}
@@ -233,7 +235,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 										i--;
 										weaponCounter--;
 										System.out.println("hit");
-										e.setCurrHealth(e.getCurrHealth()-(10+(damage1*5)));
+										e.setCurrHealth(e.getCurrHealth()-(10+(powerUps.get(2)*5)));
 										e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
 									}
 								}
@@ -490,6 +492,13 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		obstacles[3][1] = -1087;
 		obstacles[3][2] = 0;
 		obstacles[3][3] = -297;
+				//int heal1 = 0;
+		//		int speed1 = 0;
+		//		int damage1 = 0;
+				powerUps.add(0); //heal
+				powerUps.add(0); //speed
+				powerUps.add(0); //damage
+				powerUps.add(0); //life steal (on kill)
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -515,21 +524,21 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    		}
 	    	}
 	    }
-	    else if(!gameState && player.getCurrHealth() > 0) {
-	    	if(x >= 350 && x <= 550 && y >= 150 && y <= 250 && buffer > 40) {
-	    		heal1++;
+	    if(!gameState && player.getCurrHealth() > 0) {
+	    	if(x >= 350 && x <= 550 && y >= 150 && y <= 250 && buffer > 20) {
+	    		powerUps.set(0, powerUps.get(0)+1);
 	    		gameState = true;
 	    		buffer = 0;
 	    		levelUp = false;
 	    	}
-	    	if(x >= 350 && x <= 550 && y >= 275 && y <= 375 && buffer > 40) {
-	    		speed1++;
+	    	if(x >= 350 && x <= 550 && y >= 275 && y <= 375 && buffer > 20) {
+	    		powerUps.set(1, powerUps.get(1)+1);
 	    		gameState = true;
 	    		buffer = 0;
 	    		levelUp = false;
 	    	}
-	    	if(x >= 350 && x <= 550 && y >= 400 && y <= 500 && buffer > 40) {
-	    		damage1++;
+	    	if(x >= 350 && x <= 550 && y >= 400 && y <= 500 && buffer > 20) {
+	    		powerUps.set(2, powerUps.get(2)+1);
 	    		gameState = true;
 	    		buffer = 0;
 	    		levelUp = false;
@@ -554,11 +563,9 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		    		xpPercent = 0;
 		    		level = 1;
 		    		score = 0;
-		    		heal1 = 0;
-		    		speed1 = 0;
-		    		damage1 = 0;
-		    		background.setX(-800);
-		    		background.setY(-750);
+		    		for(int i =0; i < powerUps.size(); i++) {
+		    			powerUps.set(i, 0);
+		    		}
 	    		}
 	    	}
 	    }
@@ -598,41 +605,41 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			if(enemies.size() > 0) {
 				for(Enemy enemy:enemies) {
 					if(keycode == 87 && movingUp) {
- 						enemy.setSpeedY(1.5 + .05*speed1);
+ 						enemy.setSpeedY(1.5 + .05*powerUps.get(1));
  					}
 					else if(keycode == 65 && movingLeft) {
- 						enemy.setSpeedX(1.5 + .05*speed1);
+ 						enemy.setSpeedX(1.5 + .05*powerUps.get(1));
  					}
 					else if(keycode == 83 && movingDown) {
- 						enemy.setSpeedY(-1.5 - .05*speed1);
+ 						enemy.setSpeedY(-1.5 - .05*powerUps.get(1));
  					}
 					else if(keycode == 68 && movingRight) {
- 						enemy.setSpeedX(-1.5 - .05*speed1);
+ 						enemy.setSpeedX(-1.5 - .05*powerUps.get(1));
  					}
 				}
 			}
 			
 			if(keycode == 87) {
 				player.changePicture("/imgs/player.gif");
-				background.setSpeedY((float)(1.5 + .05*speed1));
+				background.setSpeedY((float)(1.5 + .05*powerUps.get(1)));
 				
 			}
 			
 			else if(keycode == 65) {
 				player.setRight(false);
 				player.changePicture("/imgs/player.gif");
-				background.setSpeedX((float)(1.5 + .05*speed1));
+				background.setSpeedX((float)(1.5 + .05*powerUps.get(1)));
 			
 			}
 			else if(keycode == 83) {
 				player.changePicture("/imgs/player.gif");
-				background.setSpeedY((float)(-1.5 - .05*speed1));
+				background.setSpeedY((float)(-1.5 - .05*powerUps.get(1)));
 				
 			}
 			else if(keycode == 68) {
 				player.setRight(true);
 				player.changePicture("/imgs/player.gif");
-				background.setSpeedX((float)(-1.5 - .15*speed1));
+				background.setSpeedX((float)(-1.5 - .15*powerUps.get(1)));
 				
 			}
 		}
@@ -670,3 +677,4 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	}
 
 }
+
