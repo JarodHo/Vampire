@@ -158,10 +158,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				if(!win) {
 					int spawn = (int)(Math.random() * 200);
 					if(spawn == 2) {
-						enemies.add(new Enemy((int)(Math.random() * 500) + 300, (int)(Math.random() * 300) + 300, 100.0, (Math.random() * 10)));
+						enemies.add(new Enemy(false));
 					}
 					if(spawn == 3) {
-						enemies.add(new Enemy(-(int)(Math.random() * 500) - 300, -(int)(Math.random() * 300) - 300, 100.0, (Math.random() * 10)));
+						enemies.add(new Enemy(true));
 					}
 				}
 				
