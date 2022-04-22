@@ -124,8 +124,12 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	//			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
 	//			System.out.println(background.getX() + " : " + background.getY());
 				
+<<<<<<< HEAD
 				System.out.println(powerUps);
 				
+=======
+				//System.out.println(powerUps);
+>>>>>>> branch 'master' of https://github.com/JarodHo/Vampire
 				if(player.getCurrHealth() < 100-(.05*powerUps.get(0))) {
 				player.setCurrHealth(player.getCurrHealth() + (0.02*powerUps.get(0)));
 				player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
@@ -166,10 +170,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				if(!win) {
 					int spawn = (int)(Math.random() * 200);
 					if(spawn == 2) {
-						enemies.add(new Enemy((int)(Math.random() * 500) + 300, (int)(Math.random() * 300) + 300, 100.0, (Math.random() * 10)));
+						enemies.add(new Enemy(false));
 					}
 					if(spawn == 3) {
-						enemies.add(new Enemy(-(int)(Math.random() * 500) - 300, -(int)(Math.random() * 300) - 300, 100.0, (Math.random() * 10)));
+						enemies.add(new Enemy(true));
 					}
 				}
 				
@@ -192,19 +196,19 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 							enemies.get(i).setSpeedX(0);
 						}
 						if(enemies.get(i).getX() < player.getX()) {
-							enemies.get(i).setX(enemies.get(i).getX()+1);
+							enemies.get(i).setX(enemies.get(i).getX()+1+(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving right");
 						}
 						else if(enemies.get(i).getX() > player.getX()+38) {
-							enemies.get(i).setX(enemies.get(i).getX()-1);
+							enemies.get(i).setX(enemies.get(i).getX()-1-(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving left");
 						}
 						if(enemies.get(i).getY() < player.getY()) {
-							enemies.get(i).setY(enemies.get(i).getY()+1);
+							enemies.get(i).setY(enemies.get(i).getY()+1+(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving down");
 						}
 						else if(enemies.get(i).getY() > player.getY() + 58) {
-							enemies.get(i).setY(enemies.get(i).getY()-1);
+							enemies.get(i).setY(enemies.get(i).getY()-1-(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving up");
 						}
 		
