@@ -14,7 +14,7 @@ public class Background{
 	private float speedX, speedY = 0;
 	
 	public Background(int x, int y) {
-		img = getImage("/imgs/Map001.png"); //load the image for Tree
+		img = getImage("/imgs/Map002.png"); //load the image for Tree
 		//put the background here^^^^
 		this.x = x;
 		this.y = y;

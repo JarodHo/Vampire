@@ -646,6 +646,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		    		
 		    		player.setX(400);
 		    		player.setY(250);
+		    		background.setX(-800);
+		    		background.setY(-750);
 		    		player.setCurrHealth(100);
 		    		player.setCurrHealthPercentage(player.getCurrHealth() / player.getMaxHealth());
 		    		start = System.currentTimeMillis();
