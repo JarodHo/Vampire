@@ -33,6 +33,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	int timer = 120;
 	boolean win = false;
 	boolean menu = true;
+	boolean instructions = false;
 	int xpPercent = 0;
 	int level = 1;
 	int enemyLevel = 1;
@@ -110,6 +111,42 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			// TODO Auto-generated catch block
 			e.printStackTrace();	
 			}	
+			g.setColor(Color.white);
+			g.drawString("Play", 425, 533);
+		}
+		else if(instructions){
+			System.out.println("display instructions");
+			g.setColor(Color.gray);
+			g.fillRect(0, 0, 1000, 1000);
+			g.setColor(Color.white);
+			InputStream myFile3 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+			try {
+				g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile3).deriveFont(Font.BOLD, 24F));
+			} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {	
+			// TODO Auto-generated catch block
+				e.printStackTrace();	
+			}	
+			g.drawString("How to Play", 150, 100);
+			InputStream myFile4 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+			try {
+				g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile4).deriveFont(Font.BOLD, 12F));
+			} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {	
+			// TODO Auto-generated catch block
+				e.printStackTrace();	
+			}	
+			g.drawString("Use WASD to move", 150, 150);
+			g.drawString("Use Left-Click to attack", 150, 175);
+			g.drawString("Avoid the monsters, get stronger, and survive" , 150, 200);
+			g.drawString("for 120 seconds!", 150, 225);
+			
+			g.setColor(Color.black);
+			g.fillRect(375, 500, 150, 50);
 			g.setColor(Color.white);
 			g.drawString("Play", 425, 533);
 		}
@@ -234,10 +271,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 							if(enemies.get(i).getCurrHealth() <= 0) {
 								enemies.remove(i);
 								enemyDeath.play();
-//								xpPercent += 20/level;
-	//							player.setCurrHealth(player.getCurrHealth() + 2 * powerUps.get(3));
-	//							player.setCurrHealthPercentage(player.getCurrHealth() / player.getMaxHealth());
-								xpPercent += 100;
+								xpPercent += 20/level;
+								player.setCurrHealth(player.getCurrHealth() + 2 * powerUps.get(3));
+								player.setCurrHealthPercentage(player.getCurrHealth() / player.getMaxHealth());
+								//xpPercent += 100;
 								score += 50;
 							}
 						}
@@ -599,6 +636,14 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    	if(x >= 375 && x <= 375+180) {
 	    		if(y >= 500 && y <= 500 + 80) {
 	    			menu = false;
+	    			instructions = true;
+	    		}
+	    	}
+	    }
+	    else if(instructions) {
+	    	if(x >= 375 && x <= 375+180) {
+	    		if(y >= 500 && y <= 500 + 80) {
+	    			instructions = false;
 	    			gameState = true;
 	    		}
 	    	}
