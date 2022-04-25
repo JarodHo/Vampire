@@ -53,7 +53,7 @@ public class PowerUps{
 		y += speedY;		
 		update();
 	}
-		
+			
 	private void update()
 	{	
 		tx.setToTranslation(x, y);
