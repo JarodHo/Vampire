@@ -47,9 +47,9 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	static Music pew = new Music("pew.wav", false);
 	static Music enemyDeath = new Music("enemydeath.wav", false);
 	static Music playerHurt = new Music("playerhurt.wav", false);
-	PowerUps heal = new PowerUps(350, 175+9, 0);//change these to numbers
-	PowerUps speed = new PowerUps(350, 300+9, 1);
-	PowerUps damage = new PowerUps(350, 425+9, 2);
+	PowerUps pw1 = new PowerUps(350, 175+9, 0);//change these to numbers
+	PowerUps pw2 = new PowerUps(350, 300+9, 1);
+	PowerUps pw3 = new PowerUps(350, 425+9, 2);
 	static ArrayList<Integer> powerUps = new ArrayList<Integer>();
 	static ArrayList<Integer> shown = new ArrayList<Integer>();
 	int buffer = 0;
@@ -125,7 +125,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	//			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
 	//			System.out.println(background.getX() + " : " + background.getY());
 				
-				System.out.println(powerUps);
 
 				if(player.getCurrHealth() < 100-(.05*powerUps.get(0))) {
 				player.setCurrHealth(player.getCurrHealth() + (0.02*powerUps.get(0)));
@@ -140,7 +139,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				for(Weapon weapon:weapons) {
 					if(weapon != null) weapon.paint(g);
 				}
-				
+				System.out.println(powerUps);
 				
 				//////////////////////////xp bar////////////////////
 				g.setColor(Color.cyan);
@@ -230,10 +229,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 							if(enemies.get(i).getCurrHealth() <= 0) {
 								enemies.remove(i);
 								enemyDeath.play();
-								xpPercent += 20/level;
+//								xpPercent += 20/level;
 	//							player.setCurrHealth(player.getCurrHealth() + 2 * powerUps.get(3));
 	//							player.setCurrHealthPercentage(player.getCurrHealth() / player.getMaxHealth());
-	//							xpPercent += 100;
+								xpPercent += 100;
 								score += 50;
 							}
 						}
@@ -363,7 +362,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 						shown.set(1, random2);
 						shown.set(2, random3);					
 						
-						System.out.println(shown);
 						levelUp = true;
 					}
 					xpPercent = 0;
@@ -375,9 +373,9 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					g.fillRect(350, 150, 200, 100);
 					g.fillRect(350, 275, 200, 100);
 					g.fillRect(350, 400, 200, 100);
-					heal.paint(g);
-					speed.paint(g);
-					damage.paint(g);
+					pw1.paint(g);
+					pw2.paint(g);
+					pw3.paint(g);
 					g.setColor(Color.white);
 					buffer++;
 					InputStream myFile2 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
@@ -392,31 +390,56 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					}
 					
 					
-					/*
-					 * for(int i = 0; i < shown.size(); i++) {
+					
+					  for(int i = 0; i < shown.size(); i++) {
 						if(shown.get(i) == 0) {
 							if(i == 0){
 								g.drawString("Regenerate a bit of ", x, y1);
 								g.drawString("health every second", x, y2);
-								
+								pw1.setPicture(0);
 							}else if (i == 1){
 								g.drawString("Regenerate a bit of ", x, y3);
 								g.drawString("health every second", x, y4);
+								pw2.setPicture(0);
 							}else if (i == 2){
 								g.drawString("Regenerate a bit of ", x, y5);
 								g.drawString("health every second", x, y6);
+								pw3.setPicture(0);
 							}
 							
 						}
+						if(shown.get(i) == 1){
+							if(i==0){
+								g.drawString("Increased movement", x, y1);
+								g.drawString("speed", x, y2);
+								pw1.setPicture(1);
+							}else if (i == 1){
+								g.drawString("Increased movement", x, y3);
+								g.drawString("speed", x, y4);
+								pw2.setPicture(1);
+							}else if (i == 2){
+								g.drawString("Increased movement", x, y5);
+								g.drawString("speed", x, y6);
+								pw3.setPicture(1);
+							}
+						}
+						if(shown.get(i) == 2){
+							if(i==0){
+									g.drawString("Increased weapon", x, y1);
+									g.drawString("damage", x, y2);
+									pw1.setPicture(2);
+								}else if (i == 1){
+									g.drawString("Increased weapon", x, y3);
+									g.drawString("damage", x, y4);
+									pw2.setPicture(2);
+								}else if (i == 2){
+									g.drawString("Increased weapon", x, y5);
+									g.drawString("damage", x, y6);
+									pw3.setPicture(2);
+								}
+						}
 					}
-					 */
-					
-					g.drawString("Regenerate a bit of ", x, 200);
-					g.drawString("health every second", x, 210);
-					g.drawString("Increased movement", x, 325);
-					g.drawString("speed", x, 335);
-					g.drawString("Inceased weapon", x, 450);
-					g.drawString("damage", x, 460);
+
 					
 				}
 				else if(!alive){
@@ -577,19 +600,37 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    }
 	    if(!gameState && player.getCurrHealth() > 0) {
 	    	if(x >= 350 && x <= 550 && y >= 150 && y <= 250 && buffer > 20) {
-	    		powerUps.set(0, powerUps.get(0)+1);
+	    		if(pw1.getPicture() == 0) {
+	    			powerUps.set(0, powerUps.get(0)+1);
+	    		}else if (pw1.getPicture() == 1) {
+	    			powerUps.set(1, powerUps.get(1)+1);
+	    		}else if (pw1.getPicture() == 2) {
+	    			powerUps.set(2, powerUps.get(2)+1);
+	    		}
 	    		gameState = true;
 	    		buffer = 0;
 	    		levelUp = false;
 	    	}
 	    	if(x >= 350 && x <= 550 && y >= 275 && y <= 375 && buffer > 20) {
-	    		powerUps.set(1, powerUps.get(1)+1);
+	    		if(pw2.getPicture() == 0) {
+	    			powerUps.set(0, powerUps.get(0)+1);
+	    		}else if (pw2.getPicture() == 1) {
+	    			powerUps.set(1, powerUps.get(1)+1);
+	    		}else if (pw2.getPicture() == 2) {
+	    			powerUps.set(2, powerUps.get(2)+1);
+	    		}
 	    		gameState = true;
 	    		buffer = 0;
 	    		levelUp = false;
 	    	}
 	    	if(x >= 350 && x <= 550 && y >= 400 && y <= 500 && buffer > 20) {
-	    		powerUps.set(2, powerUps.get(2)+1);
+	    		if(pw3.getPicture() == 0) {
+	    			powerUps.set(0, powerUps.get(0)+1);
+	    		}else if (pw3.getPicture() == 1) {
+	    			powerUps.set(1, powerUps.get(1)+1);
+	    		}else if (pw3.getPicture() == 2) {
+	    			powerUps.set(2, powerUps.get(2)+1);
+	    		}
 	    		gameState = true;
 	    		buffer = 0;
 	    		levelUp = false;

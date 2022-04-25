@@ -41,6 +41,13 @@ public class PowerUps{
 	public void paint(Graphics g) {
 		//these are the 2 lines of code needed draw an image on the screen
 		Graphics2D g2 = (Graphics2D) g;
+		if(this.picture == 0) {
+			img = getImage("/imgs/heal.png"); //load the image for Tree
+		}else if( this.picture == 1) {
+			img = getImage("/imgs/Speed.png"); //load the image for Tree
+		}else if (this.picture == 2) {
+			img = getImage("/imgs/Strength.png"); //load the image for Tree
+		}
 		g2.drawImage(img, tx, null);	
 		x += speedX;
 		y += speedY;		
@@ -85,6 +92,14 @@ public class PowerUps{
 
 	public int getY() {
 		return y;
+	}
+
+	public int getPicture() {
+		return picture;
+	}
+
+	public void setPicture(int picture) {
+		this.picture = picture;
 	}
 
 	public void setY(int y) {
