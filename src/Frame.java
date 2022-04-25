@@ -58,6 +58,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	int score = 0;
 	boolean alive = true;
 	boolean levelUp = false;
+	boolean enemyLevelUp = true;
 	int x = 387;
 	int y1 = 200;
 	int y2 = 210;
@@ -113,6 +114,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			g.drawString("Play", 425, 533);
 		}
 		else {
+			System.out.println(enemyLevel);
 			background.paint(g);
 			if(alive && !menu) {
 				player.paint(g);
@@ -124,7 +126,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			if (gameState && !menu) {
 	//			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
 	//			System.out.println(background.getX() + " : " + background.getY());
-				System.out.println(level);
 
 				if(player.getCurrHealth() < 100-(.05*powerUps.get(0))) {
 				player.setCurrHealth(player.getCurrHealth() + (0.02*powerUps.get(0)));
@@ -161,8 +162,12 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				if((endTime-start)%150 == 0 && !win) {	
 					timer--;	
 				}
-				if((endTime-start)%150 == 90 || (endTime-start)%150 == 60 || (endTime-start)%150 == 30) {
+				if(timer == 91 || timer == 61 || timer == 31){
+					enemyLevelUp = true;
+				}
+				if((timer == 90 || timer == 60 || timer == 30) && enemyLevelUp) {
 					enemyLevel++;
+					enemyLevelUp = false;
 				}
 	
 				//////////////////////////Enemy Spawn////////////////////////

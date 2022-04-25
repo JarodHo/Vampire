@@ -33,8 +33,8 @@ public class Enemy{
 		if(enemyType == 0) {
 			img = getImage("/imgs/vamp.gif"); //load the image for Tree
 			img2 = getImage("/imgs/HealthBar.PNG");
-			this.currHealth = 50+(level*15);
-			this.maxHealth = 50.0+(level*15);
+			this.currHealth = 150.0+(level*25);
+			this.maxHealth = 150.0+(level*25);
 			this.attack = (Math.random() * 10) + level;
 			currHealthPercentage = currHealth/this.maxHealth;
 			tx = AffineTransform.getTranslateInstance(x, y);
@@ -44,8 +44,8 @@ public class Enemy{
 		else if(enemyType == 1) {
 			img = getImage("/imgs/mummy.gif"); //load the image for Tree
 			img2 = getImage("/imgs/HealthBar.PNG");
-			this.currHealth = 75+(level*20);
-			this.maxHealth = 75+(level*20);
+			this.currHealth = 125+(level*25);
+			this.maxHealth = 125+(level*25);
 			this.attack = (Math.random() * 10);
 			currHealthPercentage = currHealth/this.maxHealth;
 			tx = AffineTransform.getTranslateInstance(x, y);
@@ -55,8 +55,8 @@ public class Enemy{
 		else if(enemyType == 2) {
 			img = getImage("/imgs/bat.gif"); //load the image for Tree
 			img2 = getImage("/imgs/HealthBar.PNG");
-			this.currHealth = 50.0+(level*5);
-			this.maxHealth = 50.0+(level*5);
+			this.currHealth = 75.0+(level*25);
+			this.maxHealth = 75.0+(level*25);
 			this.attack = (Math.random() * 12)+level*1.5;
 			currHealthPercentage = currHealth/this.maxHealth;
 			tx = AffineTransform.getTranslateInstance(x, y);
