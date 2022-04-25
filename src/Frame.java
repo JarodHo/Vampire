@@ -124,7 +124,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			if (gameState && !menu) {
 	//			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
 	//			System.out.println(background.getX() + " : " + background.getY());
-				
+				System.out.println(level);
 
 				if(player.getCurrHealth() < 100-(.05*powerUps.get(0))) {
 				player.setCurrHealth(player.getCurrHealth() + (0.02*powerUps.get(0)));
@@ -195,19 +195,19 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 							enemies.get(i).setSpeedX(0);
 						}
 						if(enemies.get(i).getX() < player.getX()) {
-							enemies.get(i).setX(enemies.get(i).getX()+1+(0.5*enemies.get(i).getEnemyType()));
+							enemies.get(i).setX(enemies.get(i).getX()+0.5+(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving right");
 						}
 						else if(enemies.get(i).getX() > player.getX()+38) {
-							enemies.get(i).setX(enemies.get(i).getX()-1-(0.5*enemies.get(i).getEnemyType()));
+							enemies.get(i).setX(enemies.get(i).getX()-0.5-(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving left");
 						}
 						if(enemies.get(i).getY() < player.getY()) {
-							enemies.get(i).setY(enemies.get(i).getY()+1+(0.5*enemies.get(i).getEnemyType()));
+							enemies.get(i).setY(enemies.get(i).getY()+0.5+(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving down");
 						}
 						else if(enemies.get(i).getY() > player.getY() + 58) {
-							enemies.get(i).setY(enemies.get(i).getY()-1-(0.5*enemies.get(i).getEnemyType()));
+							enemies.get(i).setY(enemies.get(i).getY()-0.5-(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving up");
 						}
 		
