@@ -25,6 +25,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	Player player = new Player(400, 250, 100);	
 	static ArrayList<Enemy> enemies = new ArrayList<Enemy>(); 
 	static ArrayList<Weapon> weapons = new ArrayList<Weapon>();
+	static ArrayList<Weapon> aura = new ArrayList<Weapon>();
+	int auraTimer = 0;
 	Background background = new Background(-800, -750);	
 	Background loseScreenVampire = new Background(350, 200);
 	int weaponCounter = 1;
@@ -172,8 +174,28 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				for(Enemy enemy:enemies) {
 					enemy.paint(g, player);
 				}
-				
-				
+				////////////aura///////////////
+					if(powerUps.get(4) > 0 && auraTimer%5 == 0) {
+						aura.add(new Weapon());
+						aura.add(new Weapon());
+						aura.add(new Weapon());
+						aura.add(new Weapon());
+						aura.get(0).setSpeedX(-player.weaponSpeed);
+						aura.get(0).setSpeedY(-player.weaponSpeed);
+						aura.get(1).setSpeedX(-player.weaponSpeed);
+						aura.get(1).setSpeedY(player.weaponSpeed);
+						aura.get(2).setSpeedX(player.weaponSpeed);
+						aura.get(2).setSpeedY(-player.weaponSpeed);
+						aura.get(3).setSpeedX(player.weaponSpeed);
+						aura.get(3).setSpeedY(player.weaponSpeed);
+					}
+					for(Weapon w: aura) {
+						if(w.getSpeedX() != 0) {
+							w.paint(g);
+						}
+						
+					}
+				//////////////////////////////
 				for(Weapon weapon:weapons) {
 					if(weapon != null) weapon.paint(g);
 				}
@@ -198,6 +220,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				start+=2;
 				if((endTime-start)%150 == 0 && !win) {	
 					timer--;	
+					auraTimer++;//change this to scale with aura level
 				}
 				if(timer == 91 || timer == 61 || timer == 31){
 					enemyLevelUp = true;
@@ -391,15 +414,15 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
 					if(!levelUp) { 
 						level++;
-							int random1 = (int)(Math.random() * 3);
-							int random2 = (int)(Math.random() * 3);
-							int random3 = (int)(Math.random() * 3);
-							while(random1 == random2) {
-								random2 = (int)(Math.random() * 3);
-							}
-							while(random1 == random3 || random2 == random3) {
-								random3 = (int)(Math.random() * 3);
-							}
+						int random1 = (int)(Math.random() * 5);
+						int random2 = (int)(Math.random() * 5);
+						int random3 = (int)(Math.random() * 5);
+						while(random1 == random2) {
+							random2 = (int)(Math.random() * 5);
+						}
+						while(random1 == random3 || random2 == random3) {
+							random3 = (int)(Math.random() * 5);
+						}
 						shown.set(0, random1);
 						shown.set(1, random2);
 						shown.set(2, random3);					
@@ -478,6 +501,36 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 									g.drawString("Increased weapon", x, y5);
 									g.drawString("damage", x, y6);
 									pw3.setPicture(2);
+								}
+						}
+						if(shown.get(i) == 3){
+							if(i==0){
+									g.drawString("Heal after slaying", x, y1);
+									g.drawString("an enemy", x, y2);
+									pw1.setPicture(3);
+								}else if (i == 1){
+									g.drawString("Heal after slaying", x, y3);
+									g.drawString("an enemy", x, y4);
+									pw2.setPicture(3);
+								}else if (i == 2){
+									g.drawString("Heal after slaying", x, y5);
+									g.drawString("an enemy", x, y6);
+									pw3.setPicture(3);
+								}
+						}
+						if(shown.get(i) == 4){
+							if(i==0){
+									g.drawString("Automatically shoot ", x, y1);
+									g.drawString("around you", x, y2);
+									pw1.setPicture(4);
+								}else if (i == 1){
+									g.drawString("Automatically shoot ", x, y3);
+									g.drawString("around you", x, y4);
+									pw2.setPicture(4);
+								}else if (i == 2){
+									g.drawString("Automatically shoot ", x, y5);
+									g.drawString("around you", x, y6);
+									pw3.setPicture(4);
 								}
 						}
 					}
@@ -612,6 +665,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				powerUps.add(0); //speed
 				powerUps.add(0); //damage
 				powerUps.add(0); //life steal (on kill)
+				powerUps.add(0); //aura (auto shoots projectiles diagonally)
 				shown.add(0);
 				shown.add(0);
 				shown.add(0);
@@ -656,6 +710,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    			powerUps.set(1, powerUps.get(1)+1);
 	    		}else if (pw1.getPicture() == 2) {
 	    			powerUps.set(2, powerUps.get(2)+1);
+	    		}else if (pw1.getPicture() == 3) {
+	    			powerUps.set(3, powerUps.get(3)+1);
+	    		}else if (pw1.getPicture() == 4) {
+	    			powerUps.set(4, powerUps.get(4)+1);
 	    		}
 	    		gameState = true;
 	    		buffer = 0;
@@ -668,6 +726,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    			powerUps.set(1, powerUps.get(1)+1);
 	    		}else if (pw2.getPicture() == 2) {
 	    			powerUps.set(2, powerUps.get(2)+1);
+	    		}else if (pw2.getPicture() == 3) {
+	    			powerUps.set(3, powerUps.get(3)+1);
+	    		}else if (pw2.getPicture() == 4) {
+	    			powerUps.set(4, powerUps.get(4)+1);
 	    		}
 	    		gameState = true;
 	    		buffer = 0;
@@ -680,6 +742,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    			powerUps.set(1, powerUps.get(1)+1);
 	    		}else if (pw3.getPicture() == 2) {
 	    			powerUps.set(2, powerUps.get(2)+1);
+	    		}else if (pw3.getPicture() == 3) {
+	    			powerUps.set(3, powerUps.get(3)+1);
+	    		}else if (pw3.getPicture() == 4) {
+	    			powerUps.set(4, powerUps.get(4)+1);
 	    		}
 	    		gameState = true;
 	    		buffer = 0;

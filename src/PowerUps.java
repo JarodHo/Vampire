@@ -47,6 +47,10 @@ public class PowerUps{
 			img = getImage("/imgs/Speed.png"); //load the image for Tree
 		}else if (this.picture == 2) {
 			img = getImage("/imgs/Strength.png"); //load the image for Tree
+		}else if (this.picture == 3) {
+			img = getImage("/imgs/lifesteal.png");
+		}else if (this.picture == 4) {
+			img = getImage("/imgs/aura.png");
 		}
 		g2.drawImage(img, tx, null);	
 		x += speedX;
