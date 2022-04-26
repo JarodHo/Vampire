@@ -18,6 +18,15 @@ public class Weapon {
 		init(x, y); 				//initialize the location of the image
 									//use your variables
 	}
+	public Weapon(float x, float y) {
+		img = getImage("/imgs/weapon.png"); //load the image for Tree
+		speedX = x;
+		speedY = y;
+
+		tx = AffineTransform.getTranslateInstance(x, y);
+		init(x, y); 				//initialize the location of the image
+									//use your variables
+	}
 	public Weapon(int x, int y) {
 		img = getImage("/imgs/weapon.png"); //load the image for Tree
 		this.x = x;
