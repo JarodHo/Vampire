@@ -179,7 +179,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				////////////aura///////////////
 					if(powerUps.get(4) > 0 && auraTimer%2 == 0 && !aura2) {	
 						aura2 = true;
-						for(int i = 0; i < aura.size(); i++) {
+						for(int i = 1; i < aura.size(); i++) {
 							if(aura.get(i).getX() < -1 || aura.get(i).getX() > 901) {
 								aura.remove(i);
 								i--;
@@ -320,7 +320,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 								enemies.remove(i);
 								enemyDeath.play();
 								xpPercent += 20/level;
-								player.setCurrHealth(player.getCurrHealth() + 2 * powerUps.get(3));
+								if(player.getCurrHealth() < 100) {
+									player.setCurrHealth(player.getCurrHealth() + 2 * powerUps.get(3));
+								}
+								
 								player.setCurrHealthPercentage(player.getCurrHealth() / player.getMaxHealth());
 								//xpPercent += 100;
 								score += 50;
@@ -331,15 +334,15 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					if(aura.size() > 0) {
 						for(int i = 1; i < aura.size(); i++) {
 							for(Enemy e : enemies) {
-								if(aura.get(i) != null && aura.get(i).getX() >= e.getX() + 5 && aura.get(i).getX() <= e.getX() + 38+5){
-									if(aura.get(i).getY() >= e.getY() + 7 && aura.get(i).getY() <= 7+58) {
-										aura.get(i).setX(1000000);
+								if(aura.get(i) != null && aura.get(i).getX() >= e.getX()+5 && aura.get(i).getX() <= e.getX()+38+5) {
+									if(aura.get(i).getY() >= e.getY()+7 && aura.get(i).getY() <= e.getY()+7+58) {
+										aura.get(i).setX(100000);
 										System.out.println("aura");
 										e.setCurrHealth(e.getCurrHealth() - (5*powerUps.get(4)));
 										e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
 									}
 								}
-							}
+							}	
 						}
 					}
 					if(weapons.size() > 0) {
