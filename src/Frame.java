@@ -43,6 +43,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	boolean movingDown = true;
 	boolean movingRight = true;
 	boolean movingLeft = true;
+	double moveVert, moveHori;
+	double oldX, oldY;
 	int iFrames = 0;
 	boolean waterWalker = false;
 	static Music music = new Music("bgm.wav", true);	
@@ -254,7 +256,15 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					enemyLevel++;
 					enemyLevelUp = false;
 				}
-	
+				if(timer%2==0) {
+					moveHori = background.getX() - oldX;
+					moveVert = background.getY() - oldY;
+				}
+				else {
+					oldX = background.getX();
+					oldY = background.getY();
+				}
+				
 				//////////////////////////Enemy Spawn////////////////////////
 				if(!win) {
 					int spawn = (int)(Math.random() * 200);
@@ -284,33 +294,33 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 						if(!movingRight) {
 							enemies.get(i).setSpeedX(0);
 						}
-						if(enemies.get(i).getX() < player.getX()) {
-							enemies.get(i).setX(enemies.get(i).getX()+0.5+(0.5*enemies.get(i).getEnemyType()));
+						if(enemies.get(i).getX() < player.getX()+moveHori) {
+							enemies.get(i).setX(enemies.get(i).getX()+Math.random()+(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving right");
 						}
-						else if(enemies.get(i).getX() > player.getX()+38) {
-							enemies.get(i).setX(enemies.get(i).getX()-0.5-(0.5*enemies.get(i).getEnemyType()));
+						else if(enemies.get(i).getX() > player.getX()+38+moveHori) {
+							enemies.get(i).setX(enemies.get(i).getX()-Math.random()-(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving left");
 						}
-						if(enemies.get(i).getY() < player.getY()) {
-							enemies.get(i).setY(enemies.get(i).getY()+0.5+(0.5*enemies.get(i).getEnemyType()));
+						if(enemies.get(i).getY() < player.getY() + moveVert) {
+							enemies.get(i).setY(enemies.get(i).getY()+Math.random()+(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving down");
 						}
-						else if(enemies.get(i).getY() > player.getY() + 58) {
-							enemies.get(i).setY(enemies.get(i).getY()-0.5-(0.5*enemies.get(i).getEnemyType()));
+						else if(enemies.get(i).getY() > player.getY() + 58+ moveVert) {
+							enemies.get(i).setY(enemies.get(i).getY()-Math.random()-(0.5*enemies.get(i).getEnemyType()));
 		//								System.out.println("moving up");
 						}
 		
 					}
 					//38 x 58
-					for(Enemy enemy1:enemies) {
-						for(Enemy enemy2:enemies) {
-							if(enemy1.getX() < enemy2.getX()+50 && enemy1.getX() > enemy2.getX() && enemy1.getY() < enemy2.getY()+70 && enemy1.getY() > enemy2.getY()) {
-								enemy1.setX(enemy1.getX()+5);
-							}
-							
-						}
-					}
+//					for(Enemy enemy1:enemies) {
+//						for(Enemy enemy2:enemies) {
+//							if(enemy1.getX() < enemy2.getX()+50 && enemy1.getX() > enemy2.getX() && enemy1.getY() < enemy2.getY()+70 && enemy1.getY() > enemy2.getY()) {
+//								enemy1.setX(enemy1.getX()+5);
+//							}
+//							
+//						}
+//					}
 					
 				
 		/////////////////////////////////////////////Enemy hurt detection///////////////////////////////
