@@ -51,6 +51,8 @@ public class PowerUps{
 			img = getImage("/imgs/lifesteal.png");
 		}else if (this.picture == 4) {
 			img = getImage("/imgs/aura.png");
+		}else if (this.picture == 5) {
+			img = getImage("/imgs/armor.png");
 		}
 		g2.drawImage(img, tx, null);	
 		x += speedX;

@@ -175,7 +175,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				for(Enemy enemy:enemies) {
 					enemy.paint(g, player);
 				}
-				System.out.println(auraTimer);
+				System.out.println(powerUps);
 				////////////aura///////////////
 					if(powerUps.get(4) > 0 && auraTimer%2 == 0 && !aura2) {	
 						aura2 = true;
@@ -370,7 +370,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 							if(e.getY() >= player.getY() && e.getY() <= player.getY() + 77) {
 	//							g.fillRect(0, 0, 10000, 10000);
 								r.paint(g);
-								player.setCurrHealth(player.getCurrHealth()-10);
+								player.setCurrHealth(player.getCurrHealth()-(10 - (2*powerUps.get(5))));
 								playerHurt.play();
 								player.setCurrHealthPercentage(player.getCurrHealth()/player.getMaxHealth());
 								iFrames = 0;
@@ -382,6 +382,19 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					background.setSpeedY(0);
 					background.setY(0);
 					movingUp = false;
+					InputStream myFile3 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+					try {
+						g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile3).deriveFont(Font.BOLD, 24F));
+					} catch (FontFormatException e) {
+					// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {	
+					// TODO Auto-generated catch block
+						e.printStackTrace();	
+					}
+					g.setColor(Color.red);
+					g.drawString("You have reached the", 175, 500);
+					g.drawString("border of the map", 200, 550);
 				}
 				else {
 					movingUp = true;
@@ -390,6 +403,19 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					background.setSpeedY(0);
 					background.setY(-1830);
 					movingDown = false;
+					InputStream myFile3 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+					try {
+						g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile3).deriveFont(Font.BOLD, 24F));
+					} catch (FontFormatException e) {
+					// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {	
+					// TODO Auto-generated catch block
+						e.printStackTrace();	
+					}
+					g.setColor(Color.red);
+					g.drawString("You have reached the", 175, 500);
+					g.drawString("border of the map", 200, 550);
 				}
 				else {
 					movingDown = true;
@@ -398,6 +424,19 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					background.setSpeedX(0);
 					background.setX(0);
 					movingLeft = false;
+					InputStream myFile3 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+					try {
+						g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile3).deriveFont(Font.BOLD, 24F));
+					} catch (FontFormatException e) {
+					// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {	
+					// TODO Auto-generated catch block
+						e.printStackTrace();	
+					}
+					g.setColor(Color.red);
+					g.drawString("You have reached the", 175, 500);
+					g.drawString("border of the map", 200, 550);
 				}
 				else {
 					movingLeft = true;
@@ -406,6 +445,19 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					background.setSpeedX(0);
 					background.setX(-1515);
 					movingRight = false;
+					InputStream myFile3 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+					try {
+						g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile3).deriveFont(Font.BOLD, 24F));
+					} catch (FontFormatException e) {
+					// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {	
+					// TODO Auto-generated catch block
+						e.printStackTrace();	
+					}
+					g.setColor(Color.red);
+					g.drawString("You have reached the", 175, 500);
+					g.drawString("border of the map", 200, 550);
 				}
 				else {
 					movingRight = true;
@@ -457,14 +509,14 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
 					if(!levelUp) { 
 						level++;
-						int random1 = (int)(Math.random() * 5);
-						int random2 = (int)(Math.random() * 5);
-						int random3 = (int)(Math.random() * 5);
+						int random1 = (int)(Math.random() * 6);
+						int random2 = (int)(Math.random() * 6);
+						int random3 = (int)(Math.random() * 6);
 						while(random1 == random2) {
-							random2 = (int)(Math.random() * 5);
+							random2 = (int)(Math.random() * 6);
 						}
 						while(random1 == random3 || random2 == random3) {
-							random3 = (int)(Math.random() * 5);
+							random3 = (int)(Math.random() * 6);
 						}
 						shown.set(0, random1);
 						shown.set(1, random2);
@@ -498,7 +550,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					}
 					
 					
-					
+					///powerup description
 					  for(int i = 0; i < shown.size(); i++) {
 						if(shown.get(i) == 0) {
 							if(i == 0){
@@ -574,6 +626,21 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 									g.drawString("Automatically shoot ", x, y5);
 									g.drawString("around you", x, y6);
 									pw3.setPicture(4);
+								}
+						}
+						if(shown.get(i) == 5){
+							if(i==0){
+									g.drawString("Monsters will do ", x, y1);
+									g.drawString("less damage to you", x, y2);
+									pw1.setPicture(5);
+								}else if (i == 1){
+									g.drawString("Monsters will do", x, y3);
+									g.drawString("less damage to you", x, y4);
+									pw2.setPicture(5);
+								}else if (i == 2){
+									g.drawString("Monsters will do  ", x, y5);
+									g.drawString("less damage to you", x, y6);
+									pw3.setPicture(5);
 								}
 						}
 					}
@@ -710,6 +777,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				powerUps.add(0); //damage
 				powerUps.add(0); //life steal (on kill)
 				powerUps.add(0); //aura (auto shoots projectiles diagonally)
+				powerUps.add(0); //armor
 				shown.add(0);
 				shown.add(0);
 				shown.add(0);
@@ -758,6 +826,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    			powerUps.set(3, powerUps.get(3)+1);
 	    		}else if (pw1.getPicture() == 4) {
 	    			powerUps.set(4, powerUps.get(4)+1);
+	    		}else if (pw1.getPicture() == 5) {
+	    			powerUps.set(5, powerUps.get(5)+1);
 	    		}
 	    		gameState = true;
 	    		buffer = 0;
@@ -774,6 +844,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    			powerUps.set(3, powerUps.get(3)+1);
 	    		}else if (pw2.getPicture() == 4) {
 	    			powerUps.set(4, powerUps.get(4)+1);
+	    		}else if (pw2.getPicture() == 5) {
+	    			powerUps.set(5, powerUps.get(5)+1);
 	    		}
 	    		gameState = true;
 	    		buffer = 0;
@@ -790,6 +862,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    			powerUps.set(3, powerUps.get(3)+1);
 	    		}else if (pw3.getPicture() == 4) {
 	    			powerUps.set(4, powerUps.get(4)+1);
+	    		}else if (pw3.getPicture() == 5) {
+	    			powerUps.set(5, powerUps.get(5)+1);
 	    		}
 	    		gameState = true;
 	    		buffer = 0;
