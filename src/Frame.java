@@ -120,7 +120,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			g.drawString("Play", 425, 533);
 		}
 		else if(instructions){
-			System.out.println("display instructions");
 			g.setColor(Color.gray);
 			g.fillRect(0, 0, 1000, 1000);
 			g.setColor(Color.white);
@@ -156,7 +155,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			g.drawString("Play", 425, 533);
 		}
 		else {
-//			System.out.println(enemyLevel);
 			background.paint(g);
 			if(alive && !menu) {
 				player.paint(g);
@@ -166,8 +164,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				gameState = false;
 			}
 			if (gameState && !menu) {
-	//			System.out.println(movingUp + " " + movingDown + " " + movingRight + " " + movingLeft);
-	//			System.out.println(background.getX() + " : " + background.getY());
+
 
 				if(player.getCurrHealth() < 100-(.05*powerUps.get(0))) {
 				player.setCurrHealth(player.getCurrHealth() + (0.02*powerUps.get(0)));
@@ -177,7 +174,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				for(Enemy enemy:enemies) {
 					enemy.paint(g, player);
 				}
-				System.out.println(auraTimer);
 				////////////aura///////////////
 					if(powerUps.get(4) > 0 && auraTimer%2 == 0 && !aura2) {	
 						aura2 = true;
@@ -226,7 +222,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				for(Weapon weapon:weapons) {
 					if(weapon != null) weapon.paint(g);
 				}
-//				System.out.println(powerUps);
 				
 				//////////////////////////xp bar////////////////////
 				g.setColor(Color.cyan);
@@ -296,31 +291,27 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 						}
 						if(enemies.get(i).getX() < player.getX()+moveHori) {
 							enemies.get(i).setX(enemies.get(i).getX()+Math.random()+(0.5*enemies.get(i).getEnemyType()));
-		//								System.out.println("moving right");
 						}
 						else if(enemies.get(i).getX() > player.getX()+38+moveHori) {
 							enemies.get(i).setX(enemies.get(i).getX()-Math.random()-(0.5*enemies.get(i).getEnemyType()));
-		//								System.out.println("moving left");
 						}
 						if(enemies.get(i).getY() < player.getY() + moveVert) {
 							enemies.get(i).setY(enemies.get(i).getY()+Math.random()+(0.5*enemies.get(i).getEnemyType()));
-		//								System.out.println("moving down");
 						}
 						else if(enemies.get(i).getY() > player.getY() + 58+ moveVert) {
 							enemies.get(i).setY(enemies.get(i).getY()-Math.random()-(0.5*enemies.get(i).getEnemyType()));
-		//								System.out.println("moving up");
 						}
 		
 					}
 					//38 x 58
-//					for(Enemy enemy1:enemies) {
-//						for(Enemy enemy2:enemies) {
-//							if(enemy1.getX() < enemy2.getX()+50 && enemy1.getX() > enemy2.getX() && enemy1.getY() < enemy2.getY()+70 && enemy1.getY() > enemy2.getY()) {
-//								enemy1.setX(enemy1.getX()+5);
-//							}
-//							
-//						}
-//					}
+					for(Enemy enemy1:enemies) {
+						for(Enemy enemy2:enemies) {
+							if(enemy1.getX() < enemy2.getX()+10 && enemy1.getX() > enemy2.getX() && enemy1.getY() < enemy2.getY()+10 && enemy1.getY() > enemy2.getY()) {
+								enemy1.setX(enemy1.getX()+1);
+							}
+							
+						}
+					}
 					
 				
 		/////////////////////////////////////////////Enemy hurt detection///////////////////////////////
@@ -347,7 +338,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 								if(aura.get(i) != null && aura.get(i).getX() >= e.getX()+5 && aura.get(i).getX() <= e.getX()+38+5) {
 									if(aura.get(i).getY() >= e.getY()+7 && aura.get(i).getY() <= e.getY()+7+58) {
 										aura.get(i).setX(100000);
-										System.out.println("aura");
 										e.setCurrHealth(e.getCurrHealth() - (5*powerUps.get(4)));
 										e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
 									}
@@ -363,7 +353,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 										weapons.remove(i);
 										i--;
 										weaponCounter--;
-//										System.out.println("hit");
 										e.setCurrHealth(e.getCurrHealth()-(15+(powerUps.get(2)*5)));
 										e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
 									}
@@ -422,33 +411,27 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				}
 				int counter = 0;
 				for(double[] obstacle:obstacles) {
-	//				System.out.println("obstacle: " + counter);
 					counter++;
 					if(counter == 4) {
 						counter = 0;
 					}
-	//				System.out.println(obstacle[0] + " " + obstacle[1] + " " + obstacle[2] + " " + obstacle[3]);
-	//				System.out.println();
+	
 					if(background.getX() >= obstacle[0]-2 && background.getX() <= obstacle[0] && background.getY() < obstacle[2]	&& background.getY() > obstacle[3]) {
-						System.out.println("can't move right");
 						background.setSpeedX(0);
 						background.setX(obstacle[0]);
 						movingRight = false;
 					}
 					if(background.getX() <= obstacle[1]+2 && background.getX() >= obstacle[1] && background.getY() < obstacle[2]	&& background.getY() > obstacle[3]) {
-						System.out.println("can't move left");
 						background.setSpeedX(0);
 						background.setX(obstacle[1]);
 						movingLeft = false;
 					}
 					if(background.getY() >= obstacle[2]-2 && background.getY() <= obstacle[2]&& background.getX() < obstacle[0] && background.getX() > obstacle[1]) {
-						System.out.println("can't move down");
 						background.setSpeedY(0);
 						background.setY(obstacle[2]);
 						movingDown = false;
 					}
 					if(background.getY() <= obstacle[3]+2 && background.getY() >= obstacle[3] && background.getX() < obstacle[0] && background.getX() > obstacle[1]) {
-						System.out.println("can't move up");
 						background.setSpeedY(0);
 						background.setY(obstacle[3]);
 						movingUp = false;
@@ -633,7 +616,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					
 			if(timer == -1 && alive) {
 			win = true;
-			System.out.println("win");
 			gameState = false;
 			
 			g.setColor(Color.gray);
@@ -810,7 +792,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 //	    	g.fillRect(375, 500, 150, 50);
 	    	if(x >= 375 && x <= 375+180) {
 	    		if(y >= 500 && y <= 500 + 80) {
-	    			System.out.println("a");
 	    			alive = true;
 		    		gameState = true;
 		    		
