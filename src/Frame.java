@@ -287,16 +287,16 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 							enemies.get(i).setSpeedX(0);
 						}
 						if(enemies.get(i).getX() < player.getX()+moveHori) {
-							enemies.get(i).setX(enemies.get(i).getX()+Math.random()*1.5+(0.5*enemies.get(i).getEnemyType()));
+							enemies.get(i).setX(enemies.get(i).getX()+Math.random()*1.25+(0.5*enemies.get(i).getEnemyType()));
 						}
 						else if(enemies.get(i).getX() > player.getX()+38+moveHori) {
-							enemies.get(i).setX(enemies.get(i).getX()-Math.random()*1.5-(0.5*enemies.get(i).getEnemyType()));
+							enemies.get(i).setX(enemies.get(i).getX()-Math.random()*1.25-(0.5*enemies.get(i).getEnemyType()));
 						}
 						if(enemies.get(i).getY() < player.getY() + moveVert) {
-							enemies.get(i).setY(enemies.get(i).getY()+Math.random()*1.5+(0.5*enemies.get(i).getEnemyType()));
+							enemies.get(i).setY(enemies.get(i).getY()+Math.random()*1.25+(0.5*enemies.get(i).getEnemyType()));
 						}
 						else if(enemies.get(i).getY() > player.getY() + 58+ moveVert) {
-							enemies.get(i).setY(enemies.get(i).getY()-Math.random()*1.5-(0.5*enemies.get(i).getEnemyType()));
+							enemies.get(i).setY(enemies.get(i).getY()-Math.random()*1.25-(0.5*enemies.get(i).getEnemyType()));
 						}
 		
 					}
