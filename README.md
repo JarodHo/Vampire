@@ -1,3 +1,3 @@
-# Vampire!
+# Vampire
 
 
