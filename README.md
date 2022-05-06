@@ -6,6 +6,8 @@
 
 ![powerups](https://user-images.githubusercontent.com/70664893/167162848-7e3e914a-8ff3-455d-b412-15161f80e05f.png)
 
+![gaemplay](https://github.com/JarodHo/Vampire/blob/master/gameplay%20(2).gif)
+
 ## Overview
 The overall goal of the Space Invader project was to recreate a version of the traditional arcade game **Space Invaders** in the programming language **Java**. 
 Although this version doesn't contain all the parts of the original game, additional features were added to keep the game from being too difficult or easy.
