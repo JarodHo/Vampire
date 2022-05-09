@@ -231,7 +231,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				g.setFont(c1);
 				g.setColor(Color.black);
 				g.drawString("LV: " + level, 10, 25);
-				g.drawString("Kills until next level: " + (5*level - (xpPercent*level)/20), 700, 25);
+				g.drawString("Kills until next level: " + (5 - (xpPercent)/20), 700, 25);
 				if(xpPercent >= 100) {
 					gameState = false;
 				}
@@ -309,7 +309,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 							if(enemies.get(i).getCurrHealth() <= 0) {
 								enemies.remove(i);
 								enemyDeath.play();
-								xpPercent += 20/level;
+								xpPercent += 20;
 								if(player.getCurrHealth() < 100) {
 									player.setCurrHealth(player.getCurrHealth() + 2 * powerUps.get(3));
 								}
