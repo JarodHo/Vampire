@@ -326,7 +326,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 							for(Enemy e : enemies) {
 								if(aura.get(i) != null && aura.get(i).getX() >= e.getX()+5 && aura.get(i).getX() <= e.getX()+38+5) {
 									if(aura.get(i).getY() >= e.getY()+7 && aura.get(i).getY() <= e.getY()+7+58) {
-//										aura.get(i).setX(100000);
+//										aura.get(i).setX(100000);	
 										e.setCurrHealth(e.getCurrHealth() - (5*powerUps.get(4)));
 										e.setCurrHealthPercentage(e.getCurrHealth()/e.getMaxHealth());
 									}
