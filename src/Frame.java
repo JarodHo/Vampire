@@ -37,7 +37,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	boolean win = false;
 	boolean menu = true;
 	boolean instructions = false;
-	int xpPercent = 0;
 	int level = 1;
 	int enemyLevel = 1;
 	boolean movingUp = true;
@@ -73,6 +72,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	int y5 = 450;
 	int y6 = 460;
 	boolean aura2 = false;
+	double killsSinceLevel = 0;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -226,14 +226,20 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				
 				//////////////////////////xp bar////////////////////
 				g.setColor(Color.cyan);
-				g.fillRect(0, 10, xpPercent*9, 20);
+				float a = (float)((killsSinceLevel/(5+(level-1))))*900;
+				int killsUntilLevel = (int)(5+(level-1) - killsSinceLevel);
+				g.fillRect(0, 10, (int)a, 20);				
+//				System.out.println((double)(1.0/5+level));
+//				System.out.println((int)()*900));
+//				System.out.println(killsSinceLevel/5+(level-1)*900);
 				Font c1 = new Font ("Terminal", Font.BOLD, 15);
 				g.setFont(c1);
 				g.setColor(Color.black);
 				g.drawString("LV: " + level, 10, 25);
-				g.drawString("Kills until next level: " + (5 - (xpPercent)/20), 700, 25);
-				if(xpPercent >= 100) {
+				g.drawString("Kills until next level: " + (int)(killsUntilLevel), 700, 25);
+				if(killsUntilLevel == 0.0) {
 					gameState = false;
+					killsSinceLevel = 0;
 				}
 				/////////////////////////timer//////////////////////
 				Font c2 = new Font ("Terminal", Font.BOLD, 25);
@@ -249,10 +255,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					moveHori = background.getX() - oldX;
 					moveVert = background.getY() - oldY;
 				}
-				if(timer == 91 || timer == 61 || timer == 31){
+				if(timer == 106 || timer == 91 || timer == 61 || timer == 31 || timer == 16){
 					enemyLevelUp = true;
 				}
-				if((timer == 90 || timer == 60 || timer == 30) && enemyLevelUp) {
+				if((timer == 105 || timer == 90 || timer == 60 || timer == 30 || timer == 15) && enemyLevelUp) {
 					enemyLevel++;
 					enemyLevelUp = false;
 				}
@@ -309,7 +315,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 							if(enemies.get(i).getCurrHealth() <= 0) {
 								enemies.remove(i);
 								enemyDeath.play();
-								xpPercent += 20;
+								killsSinceLevel++;
 								if(player.getCurrHealth() < 100) {
 									player.setCurrHealth(player.getCurrHealth() + 2 * powerUps.get(3));
 								}
@@ -370,6 +376,18 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					background.setSpeedY(0);
 					background.setY(0);
 					movingUp = false;
+					g.setColor(Color.red);
+					InputStream myFile4 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+					try {
+					g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile4).deriveFont(Font.BOLD, 16F));
+					} catch (FontFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					} catch (IOException e) {	
+					// TODO Auto-generated catch block
+					e.printStackTrace();	
+					}
+					g.drawString("You have reached the border of the map", 125, 500);
 				}
 				else {
 					movingUp = true;
@@ -378,6 +396,18 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					background.setSpeedY(0);
 					background.setY(-1830);
 					movingDown = false;
+					g.setColor(Color.red);
+					InputStream myFile4 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+					try {
+					g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile4).deriveFont(Font.BOLD, 16F));
+					} catch (FontFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					} catch (IOException e) {	
+					// TODO Auto-generated catch block
+					e.printStackTrace();	
+					}
+					g.drawString("You have reached the border of the map", 125, 500);
 				}
 				else {
 					movingDown = true;
@@ -386,6 +416,18 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					background.setSpeedX(0);
 					background.setX(0);
 					movingLeft = false;
+					g.setColor(Color.red);
+					InputStream myFile4 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+					try {
+					g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile4).deriveFont(Font.BOLD, 16F));
+					} catch (FontFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					} catch (IOException e) {	
+					// TODO Auto-generated catch block
+					e.printStackTrace();	
+					}
+					g.drawString("You have reached the border of the map", 125, 500);
 				}
 				else {
 					movingLeft = true;
@@ -394,6 +436,18 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					background.setSpeedX(0);
 					background.setX(-1515);
 					movingRight = false;
+					g.setColor(Color.red);
+					InputStream myFile4 = Frame.class.getResourceAsStream("/fonts/PressStart2P.ttf");
+					try {
+					g.setFont(Font.createFont(Font.TRUETYPE_FONT, myFile4).deriveFont(Font.BOLD, 16F));
+					} catch (FontFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					} catch (IOException e) {	
+					// TODO Auto-generated catch block
+					e.printStackTrace();	
+					}
+					g.drawString("You have reached the border of the map", 125, 500);
 				}
 				else {
 					movingRight = true;
@@ -454,7 +508,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 						
 						levelUp = true;
 					}
-					xpPercent = 0;
+					killsSinceLevel = 0;
 					g.setColor(Color.black);
 					g.fillRect(300, 100, 300, 450);
 					g.setColor(Color.white);
@@ -794,7 +848,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		    		endTime = start + 18000;
 		    		timer = 120;
 		    		win = false;
-		    		xpPercent = 0;
+		    		killsSinceLevel = 0;
 		    		level = 1;
 		    		enemyLevel = 1;
 		    		score = 0;
