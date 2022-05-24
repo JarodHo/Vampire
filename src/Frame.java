@@ -224,7 +224,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					if(weapon != null) weapon.paint(g);
 				}
 				
-				//////////////////////////xp bar////////////////////
+				//////////////////////////xp bar - this updates the xp bar to the correct percentage of the screen covered
 				g.setColor(Color.cyan);
 				float a = (float)((killsSinceLevel/(5+(level-1))))*900;
 				int killsUntilLevel = (int)(5+(level-1) - killsSinceLevel);
@@ -241,7 +241,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					gameState = false;
 					killsSinceLevel = 0;
 				}
-				/////////////////////////timer//////////////////////
+				/////////////////////////timer - this updates the timer every second until it hits 0
 				Font c2 = new Font ("Terminal", Font.BOLD, 25);
 				g.setFont(c2);
 				g.setColor(Color.black);
@@ -263,7 +263,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					enemyLevelUp = false;
 				}
 				
-				//////////////////////////Enemy Spawn////////////////////////
+				//////////////////////////Enemy Spawn - spawns enemies randomly
 				if(!win) {
 					int spawn = (int)(Math.random() * 200);
 					if(spawn == 2) {
@@ -276,7 +276,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				
 				
 				
-				//////////////////////////////////////////////////////////////////Enemy Movement//////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////Enemy Movement - moves the enemy toward the player, it also adapts based on how fast the enemy is supposed to be
 				if(enemies.size() > 0) {
 					for(int i = 0; i < enemies.size(); i++) {
 	
@@ -309,7 +309,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 					//38 x 58
 					
 				
-		/////////////////////////////////////////////Enemy hurt detection///////////////////////////////
+		/////////////////////////////////////////////Enemy hurt detection - detects if an enemy is shot by the player
 					if(enemies.size() > 0) {
 						for(int i = 0; i < enemies.size(); i++) {
 							if(enemies.get(i).getCurrHealth() <= 0) {
@@ -355,7 +355,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 							}	
 						}
 					}
-					////////////////Player hurt detection/////////////////
+					////////////////Player hurt detection - detects when the player is hit by an enemy
 					iFrames++;
 	//				Color hurt = new Color(255, 0, 0, 127);
 	//				g.setColor(hurt);
@@ -372,6 +372,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 						}
 					}
 				}	
+				///////////////This notifies the player if they reach the border of the map
 				if(background.getY() >= 0) {
 					background.setSpeedY(0);
 					background.setY(0);
@@ -452,6 +453,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				else {
 					movingRight = true;
 				}
+				//this code is the logic for collisions with the player, it prevents the player from walking on water
 				int counter = 0;
 				for(double[] obstacle:obstacles) {
 					counter++;
@@ -490,7 +492,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				background.setSpeedY(0);
 				if(player.getCurrHealth() > 0 && !win) {
 					// level up
-
+					//this part of the level up section randomly chooses which power ups are available upon level up
 					if(!levelUp) { 
 						level++;
 						int random1 = (int)(Math.random() * 5);
@@ -533,7 +535,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 						e.printStackTrace();	
 					}
 					
-					
+					//this code generates the randomized power up text and icons
 					
 					  for(int i = 0; i < shown.size(); i++) {
 						if(shown.get(i) == 0) {
@@ -616,6 +618,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
 					
 				}
+				//this code checks if the player is alive upon level up
 				else if(!alive){
 					g.setColor(Color.gray);
 					g.fillRect(0, 0, 1000, 1000);
@@ -655,7 +658,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 				}
 					
 			}
-			////////////////////////////////////////////win/////////////////////////////
+			////////////////////////////////////////////win - switches to the win screen
 					
 			if(timer == -1 && alive) {
 			win = true;
@@ -721,6 +724,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		t.start();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
+		//getting the coordinates of the obstacles
 		obstacles[0][0] = -515.5;
 		obstacles[0][1] = -748;
 		obstacles[0][2] = -784;
@@ -752,6 +756,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		//this code makes the player shoot where the mouse is
 		int x = e.getX();
 	    int y = e.getY();
 	    float length = (float) Math.sqrt(Math.pow((x - player.getX()), 2) + Math.pow((y - player.getY()), 2));
@@ -781,6 +786,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    		}
 	    	}
 	    }
+	    // this code powers the player up according to the power up they chose.
 	    if(!gameState && player.getCurrHealth() > 0) {
 	    	if(x >= 350 && x <= 550 && y >= 150 && y <= 250 && buffer > 20) {
 	    		if(pw1.getPicture() == 0) {
@@ -831,6 +837,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	    		levelUp = false;
 	    	}
 	    }
+	    //this code resets the game
 	    if((!alive && !gameState) || win) {
 //	    	g.fillRect(375, 500, 150, 50);
 	    	if(x >= 375 && x <= 375+180) {
@@ -888,7 +895,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		//this code moves the enemies according to the speed power up
 		if(gameState) {
 			int keycode = e.getKeyCode();
 			if(enemies.size() > 0) {
@@ -907,7 +914,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
  					}
 				}
 			}
-			
+			//this code makes it so the player is only animated when it is moving
 			if(keycode == 87) {
 				player.changePicture("/imgs/player.gif");
 				background.setSpeedY((float)(1.5 + .05*powerUps.get(1)));
